@@ -1989,6 +1989,7 @@
 				0DB06AC218C71463003217A8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		0DB06AC318C71463003217A8 /* Build configuration list for PBXNativeTarget "Tower Of Salon" */ = {
 			isa = XCConfigurationList;
@@ -1997,6 +1998,7 @@
 				0DB06AC518C71463003217A8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
