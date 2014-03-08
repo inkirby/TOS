@@ -59,13 +59,5 @@
 // -----------------------------------------------------------------------
 #pragma mark - Button Callbacks
 // -----------------------------------------------------------------------
-
-- (void)onSpinningClicked:(id)sender
-{
-    // start spinning scene with transition
-    [[CCDirector sharedDirector] replaceScene:[HelloWorldScene scene]
-                               withTransition:[CCTransition transitionPushWithDirection:CCTransitionDirectionLeft duration:1.0f]];
-}
-
 // -----------------------------------------------------------------------
 @end

@@ -9,6 +9,9 @@
 
 #import "HelloWorldScene.h"
 #import "IntroScene.h"
+#import "Tower.h"
+#import "Waypoint.h"
+#import "Enemy.h"
 
 // -----------------------------------------------------------------------
 #pragma mark - HelloWorldScene
@@ -18,6 +21,9 @@
 {
     CCSprite *_sprite;
 }
+@synthesize towers;
+@synthesize waypoints;
+@synthesize enemies;
 
 // -----------------------------------------------------------------------
 #pragma mark - Create & Destroy
@@ -25,6 +31,7 @@
 
 + (HelloWorldScene *)scene
 {
+    NSLog(@"Call Scene");
     return [[self alloc] init];
 }
 
@@ -36,31 +43,148 @@
     self = [super init];
     if (!self) return(nil);
     
+    NSLog(@"init helloworld");
+    
     // Enable touch handling on scene node
     self.userInteractionEnabled = YES;
+    CGSize winSize = [CCDirector sharedDirector].viewSize;
     
-    // Create a colored background (Dark Grey)
-    CCNodeColor *background = [CCNodeColor nodeWithColor:[CCColor colorWithRed:0.2f green:0.2f blue:0.2f alpha:1.0f]];
+    CCSprite *background = [CCSprite spriteWithImageNamed:@"bg.png"];
     [self addChild:background];
+    [background setPosition:ccp(winSize.width/2, winSize.height/2)];
     
-    // Add a sprite
-    _sprite = [CCSprite spriteWithImageNamed:@"Icon-72.png"];
-    _sprite.position  = ccp(self.contentSize.width/2,self.contentSize.height/2);
-    [self addChild:_sprite];
+    playerHP = 5;
+    playerGold = 1000;
+    playerDiamond = 0;
     
-    // Animate sprite with action
-    CCActionRotateBy* actionSpin = [CCActionRotateBy actionWithDuration:1.5f angle:360];
-    [_sprite runAction:[CCActionRepeatForever actionWithAction:actionSpin]];
+    [self loadTowerPositions];
+    [self addWaypoints];
+    enemies = [[NSMutableArray alloc] init];
+    [self loadWave];
     
-    // Create a back button
-    CCButton *backButton = [CCButton buttonWithTitle:@"[ Menu ]" fontName:@"Verdana-Bold" fontSize:18.0f];
-    backButton.positionType = CCPositionTypeNormalized;
-    backButton.position = ccp(0.85f, 0.95f); // Top Right of screen
-    [backButton setTarget:self selector:@selector(onBackClicked:)];
-    [self addChild:backButton];
+    ui_wave_lbl = [CCLabelBMFont labelWithString:[NSString stringWithFormat:@"WAVE: %d",wave] fntFile:@"font_red_14.fnt"];
+    [self addChild:ui_wave_lbl z:10];
+    [ui_wave_lbl setPosition:ccp(400,winSize.height-12)];
+    [ui_wave_lbl setAnchorPoint:ccp(0,0.5)];
 
+    ui_hp_lbl = [CCLabelBMFont labelWithString:[NSString stringWithFormat:@"HP: %d",playerHP] fntFile:@"font_red_14.fnt"];
+    [self addChild:ui_hp_lbl z:10];
+    [ui_hp_lbl setPosition:ccp(35,winSize.height-12)];
+    
+    ui_gold_lbl = [CCLabelBMFont labelWithString:[NSString stringWithFormat:@"GOLD: %d",playerGold]
+                                         fntFile:@"font_red_14.fnt"];
+    [self addChild:ui_gold_lbl z:10];
+    [ui_gold_lbl setPosition:ccp(135,winSize.height-12)];
+    [ui_gold_lbl setAnchorPoint:ccp(0,0.5)];
+    
     // done
 	return self;
+}
+
+- (void)loadTowerPositions {
+    NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"TowersPosition" ofType:@"plist"];
+    NSArray *towerPositions = [NSArray arrayWithContentsOfFile:plistPath];
+    
+    towerBases = [[NSMutableArray alloc] initWithCapacity:10];
+    
+    for(NSDictionary *towerPos in towerPositions) {
+        CCSprite *towerBase = [CCSprite spriteWithImageNamed:@"open_spot.png"];
+        [self addChild:towerBase];
+        [towerBase setPosition:ccp([[towerPos objectForKey:@"x"] intValue], [[towerPos objectForKey:@"y"] intValue])];
+        [towerBases addObject:towerBase];
+    }
+    
+}
+-(BOOL)canBuyTower {
+    return playerGold - TOWER_COST >= 0 ? YES : NO;
+}
+-(void)addWaypoints{
+    waypoints = [[NSMutableArray alloc] init];
+    
+    Waypoint * waypoint1 = [Waypoint nodeWithTheGame:self location:ccp(420,35)];
+    [waypoints addObject:waypoint1];
+    
+    Waypoint * waypoint2 = [Waypoint nodeWithTheGame:self location:ccp(35,35)];
+    [waypoints addObject:waypoint2];
+    waypoint2.nextWayPoint =waypoint1;
+    
+    Waypoint * waypoint3 = [Waypoint nodeWithTheGame:self location:ccp(35,130)];
+    [waypoints addObject:waypoint3];
+    waypoint3.nextWayPoint =waypoint2;
+    
+    Waypoint * waypoint4 = [Waypoint nodeWithTheGame:self location:ccp(445,130)];
+    [waypoints addObject:waypoint4];
+    waypoint4.nextWayPoint =waypoint3;
+    
+    Waypoint * waypoint5 = [Waypoint nodeWithTheGame:self location:ccp(445,220)];
+    [waypoints addObject:waypoint5];
+    waypoint5.nextWayPoint =waypoint4;
+    
+    Waypoint * waypoint6 = [Waypoint nodeWithTheGame:self location:ccp(-40,220)];
+    [waypoints addObject:waypoint6];
+    waypoint6.nextWayPoint =waypoint5;
+}
+-(BOOL)circle:(CGPoint)circlePoint withRadius:(float)radius collisionWithCircle:(CGPoint)circlePointTwo collisionCircleRadius:(float)radiusTwo {
+    float xdif = circlePoint.x - circlePointTwo.x;
+    float ydif = circlePoint.y - circlePointTwo.y;
+    
+    float distance = sqrt(xdif*xdif + ydif*ydif);
+    
+    if(distance <= radius+radiusTwo) {
+        return YES;
+    }
+    return NO;
+    
+}
+-(BOOL)loadWave {
+    NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"Waves" ofType:@"plist"];
+    NSArray *waveData = [NSArray arrayWithContentsOfFile:plistPath];
+    
+    if(wave >= [waveData count]) {
+        return NO;
+    }
+    
+    NSLog(@"wave=%d",wave);
+    
+    NSArray *currentWaveData = [NSArray arrayWithArray:[waveData objectAtIndex:wave]];
+    for(NSDictionary *enemyData in currentWaveData) {
+        Enemy *enemy = [Enemy nodeWithTheGame:self];
+        [enemies addObject:enemy];
+        [enemy scheduleOnce:@selector(doActivate) delay:[[enemyData objectForKey:@"spawnTime"] floatValue]];
+    }
+    
+    NSLog(@"enemy =%d",[enemies count]);
+    
+    wave++;
+    [ui_wave_lbl setString:[NSString stringWithFormat:@"WAVE: %d",wave]];
+    
+    return YES;
+}
+
+-(void)enemyGotKilled {
+    if ([enemies count] <= 0) {
+        if(![self loadWave]) {
+            NSLog(@"You win!");
+        }
+    }
+}
+
+-(void)getHpDamage {
+    playerHP--;
+    [ui_hp_lbl setString:[NSString stringWithFormat:@"HP: %d",playerHP]];
+    if (playerHP <=0) {
+        [self doGameOver];
+    }
+}
+-(void)doGameOver {
+    if(!gameEnded) {
+        gameEnded = YES;
+        NSLog(@"Game Over");
+    }
+}
+-(void)awardGold:(int)gold {
+    playerGold += gold;
+    [ui_gold_lbl setString:[NSString stringWithFormat:@"GOLD: %d",playerGold]];
 }
 
 // -----------------------------------------------------------------------
@@ -97,16 +221,50 @@
 #pragma mark - Touch Handler
 // -----------------------------------------------------------------------
 
+//-(void) touchBegan:(UITouch *)touch withEvent:(UIEvent *)event {
+//    CGPoint touchLoc = [touch locationInNode:self];
+//    
+//    // Log touch location
+//    CCLOG(@"Move sprite to @ %@",NSStringFromCGPoint(touchLoc));
+//    
+//    // Move our sprite to touch location
+//    CCActionMoveTo *actionMove = [CCActionMoveTo actionWithDuration:1.0f position:touchLoc];
+//    [_sprite runAction:actionMove];
+//}
+
 -(void) touchBegan:(UITouch *)touch withEvent:(UIEvent *)event {
-    CGPoint touchLoc = [touch locationInNode:self];
+    CGPoint location = [touch locationInView:[touch view]];
+    location = [[CCDirector sharedDirector] convertToGL:location];
+    for(CCSprite *towerBase in towerBases) {
+        if(CGRectContainsPoint([towerBase boundingBox], location) && [self canBuyTower] && !towerBase.userObject) {
+            Tower *tower = [Tower nodeWithTheGame:self location:towerBase.position];
+            [towers addObject:tower];
+            towerBase.userObject = (__bridge id)((__bridge void *)(tower));
+            playerGold -= TOWER_COST;
+            
+            [ui_gold_lbl setString:[NSString stringWithFormat:@"GOLD: %d",playerGold]];
+            NSLog(@"touch tower base");
+        }
+    }
+
     
-    // Log touch location
-    CCLOG(@"Move sprite to @ %@",NSStringFromCGPoint(touchLoc));
-    
-    // Move our sprite to touch location
-    CCActionMoveTo *actionMove = [CCActionMoveTo actionWithDuration:1.0f position:touchLoc];
-    [_sprite runAction:actionMove];
 }
+
+//-(void)ccTouchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+//    for (UITouch *touch in touches) {
+//        CGPoint location = [touch locationInView:[touch view]];
+//        location = [[CCDirector sharedDirector] convertToGL:location];
+//        for(CCSprite *towerBase in towerBases) {
+//            if(CGRectContainsPoint([towerBase boundingBox], location) && [self canBuyTower] && !towerBase.userObject) {
+//                Tower *tower = [Tower nodeWithTheGame:self location:towerBase.position];
+//                [towers addObject:tower];
+//                towerBase.userObject = (__bridge id)((__bridge void *)(tower));
+//                
+//                NSLog(@"touch tower base");
+//            }
+//        }
+//    }
+//}
 
 // -----------------------------------------------------------------------
 #pragma mark - Button Callbacks

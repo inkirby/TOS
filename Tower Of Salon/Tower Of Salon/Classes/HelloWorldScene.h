@@ -8,20 +8,44 @@
 // -----------------------------------------------------------------------
 
 // Importing cocos2d.h and cocos2d-ui.h, will import anything you need to start using Cocos2D v3
+#import <GameKit/GameKit.h>
 #import "cocos2d.h"
 #import "cocos2d-ui.h"
+
 
 // -----------------------------------------------------------------------
 
 /**
  *  The main scene
  */
-@interface HelloWorldScene : CCScene
+@interface HelloWorldScene : CCScene {
+    NSMutableArray *towerBases;
+    int wave;
+    int playerHP;
+    int playerGold;
+    int playerDiamond;
+    BOOL gameEnded;
+    CCLabelBMFont *ui_hp_lbl;
+    CCLabelBMFont *ui_gold_lbl;
+    CCLabelBMFont *ui_wave_lbl;
+}
+
+@property (nonatomic,strong) NSMutableArray *towers;
+@property (nonatomic,strong) NSMutableArray *waypoints;
+@property (nonatomic,strong) NSMutableArray *enemies;
 
 // -----------------------------------------------------------------------
 
 + (HelloWorldScene *)scene;
 - (id)init;
+-(BOOL)circle:(CGPoint)circlePoint withRadius:(float)radius
+collisionWithCircle:(CGPoint)circlePointTwo collisionCircleRadius:(float)radiusTwo;
+void ccFillPoly(CGPoint *poli,int points,BOOL closePolygon);
+- (void) enemyGotKilled;
+- (void) getHpDamage;
+- (void) doGameOver;
+- (void) awardGold:(int)gold;
+- (void) awardDiamond:(int)diamond;
 
 // -----------------------------------------------------------------------
 @end
