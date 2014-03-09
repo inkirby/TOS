@@ -9,8 +9,8 @@
 #import "Tower.h"
 #import "Enemy.h"
 
-#define HEALTH_BAR_WIDTH 20
-#define HEALTH_BAR_ORIGIN -10
+const float TOWER_HEALTH_BAR_WIDTH = 40.0f;
+const float TOWER_HEALTH_BAR_HEIGHT = 4.0f;
 
 @implementation Tower
 
@@ -31,6 +31,10 @@
         maxHP = 50;
         currentHP = maxHP;
         
+        healthBar = [[CCDrawNode alloc] init];
+        healthBar.contentSize = CGSizeMake(TOWER_HEALTH_BAR_WIDTH, TOWER_HEALTH_BAR_HEIGHT);
+        [self addChild:healthBar];
+        
         mySprite = [CCSprite spriteWithImageNamed:@"tower.png"];
         [self addChild:mySprite];
         [mySprite setPosition:location];
@@ -45,6 +49,9 @@
 
 -(void)update:(CCTime)delta {
     
+    healthBar.position = ccp(mySprite.position.x - TOWER_HEALTH_BAR_WIDTH/2.0f + 0.5f, mySprite.position.y - mySprite.contentSize.height/2.0f - 10.0f + 0.5f);
+    
+    [self drawHealthBar:healthBar hp:currentHP];
     if(chosenEnemy) {
         CGPoint normalized = ccpNormalize(ccp(chosenEnemy.mySprite.position.x-mySprite.position.x,chosenEnemy.mySprite.position.y-mySprite.position.y));
         mySprite.rotation = CC_RADIANS_TO_DEGREES(atan2(normalized.y, -normalized.x))+90;
@@ -95,6 +102,37 @@
         chosenEnemy = nil;
     }
     [self unschedule:@selector(shootWeapon)];
+}
+
+-(void)drawHealthBar:(CCDrawNode *)node hp:(int)hp {
+    [node clear];
+    
+    CGPoint verts[4];
+    verts[0] = ccp(0.0f, 0.0f);
+    verts[1] = ccp(0.0f, TOWER_HEALTH_BAR_HEIGHT - 1.0f);
+    verts[2] = ccp(TOWER_HEALTH_BAR_WIDTH - 1.0f, TOWER_HEALTH_BAR_HEIGHT - 1.0f);
+    verts[3] = ccp(TOWER_HEALTH_BAR_WIDTH - 1.0f, 0.0f);
+    
+    //ccColor4F clearColor = ccc4f(0.0f, 0.0f, 0.0f, 0.0f);
+    //ccColor4F borderColor = ccc4f(35.0f/255.0f, 28.0f/255.0f, 40.0f/255.0f, 1.0f);
+    //ccColor4F fillColor = ccc4f(113.0f/255.0f, 202.0f/255.0f, 53.0f/255.0f, 1.0f);
+    
+    CCColor *clearColors = [CCColor redColor];
+    CCColor *borderColors = [CCColor blackColor];
+    CCColor *fillColors = [CCColor greenColor];
+    
+    [node drawPolyWithVerts:verts count:4 fillColor:clearColors borderWidth:1.0f borderColor:borderColors];
+    
+    verts[0].x += 0.5f;
+    verts[0].y += 0.5f;
+    verts[1].x += 0.5f;
+    verts[1].y -= 0.5f;
+    verts[2].x = (TOWER_HEALTH_BAR_WIDTH - 2.0f)*currentHP/maxHP + 0.5f;
+    verts[2].y -= 0.5f;
+    verts[3].x = verts[2].x;
+    verts[3].y += 0.5f;
+    
+    [node drawPolyWithVerts:verts count:4 fillColor:fillColors borderWidth:0.0f borderColor:clearColors];
 }
 
 -(void)draw {

@@ -21,13 +21,14 @@
     Waypoint *destinationWaypoint;
     BOOL active;
     NSMutableArray *attackedBy;
+    CCDrawNode *healthBar;
 }
 
 @property (nonatomic,assign) HelloWorldScene *theGame;
 @property (nonatomic,assign) CCSprite *mySprite;
 
-+(id)nodeWithTheGame:(HelloWorldScene *)_game;
--(id)initWithTheGame:(HelloWorldScene *)_game;
++(id)nodeWithTheGame:(HelloWorldScene *)_game enemy:(NSString *)enemy;
+-(id)initWithTheGame:(HelloWorldScene *)_game enemy:(NSString *)enemy;
 -(void)doActivate;
 -(void)getRemoved;
 -(void)getAttacked:(Tower *)attacker;

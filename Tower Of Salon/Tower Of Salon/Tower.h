@@ -22,6 +22,7 @@
     int currentHP;
     BOOL isAttacking;
     Enemy *chosenEnemy;
+    CCDrawNode *healthBar;
 }
 
 @property (nonatomic,weak) HelloWorldScene *theGame;

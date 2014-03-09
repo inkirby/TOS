@@ -148,7 +148,7 @@
     
     NSArray *currentWaveData = [NSArray arrayWithArray:[waveData objectAtIndex:wave]];
     for(NSDictionary *enemyData in currentWaveData) {
-        Enemy *enemy = [Enemy nodeWithTheGame:self];
+        Enemy *enemy = [Enemy nodeWithTheGame:self enemy:[enemyData objectForKey:@"data"]];
         [enemies addObject:enemy];
         [enemy scheduleOnce:@selector(doActivate) delay:[[enemyData objectForKey:@"spawnTime"] floatValue]];
     }
