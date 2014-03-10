@@ -18,35 +18,35 @@ const float ENEMY_HEALTH_BAR_HEIGHT = 4.0f;
 @synthesize mySprite;
 @synthesize theGame;
 
-+(id)nodeWithTheGame:(HelloWorldScene *)_game enemy:(NSString *)enemy wave:(NSInteger)wave{
++(id)nodeWithTheGame:(HelloWorldScene *)_game enemy:(NSInteger)enemy wave:(NSInteger)wave{
     return [[self alloc] initWithTheGame:_game enemy:enemy wave:wave];
 }
 
--(id)initWithTheGame:(HelloWorldScene *)_game enemy:(NSString *)enemy wave:(NSInteger)wave{
+-(id)initWithTheGame:(HelloWorldScene *)_game enemy:(NSInteger)enemy wave:(NSInteger)wave{
     if((self = [super init])) {
         
         attackedBy = [[NSMutableArray alloc] initWithCapacity:5];
         
         theGame = _game;
         //added assets
-        if([enemy  isEqualToString: @"skeleton"]) {
+        if(enemy == 0) {
             mySprite = [CCSprite spriteWithImageNamed:@"skeleton.png"];
             [self addChild:mySprite];
             maxHP = 40+(5* wave);
             walkingSpeed = 1.0;
-            type = @"skeleton";
-        } else if ([enemy isEqualToString:@"hydra"]) {
+            type = 0;
+        } else if (enemy == 1) {
             mySprite = [CCSprite spriteWithImageNamed:@"hydra.png"];
             [self addChild:mySprite];
             maxHP = 100+(10*wave);
             walkingSpeed = 2.5;
-            type = @"hydra";
-        } else if ([enemy isEqualToString:@"boss"]) {
+            type = 1;
+        } else if (enemy == 2) {
             mySprite = [CCSprite spriteWithImageNamed:@"boss.png"];
             [self addChild:mySprite];
             maxHP = 250+(20*wave);
             walkingSpeed = 3.5;
-            type = @"boss";
+            type = 2;
         }
         currentHP = maxHP;
         active = NO;
@@ -125,15 +125,19 @@ const float ENEMY_HEALTH_BAR_HEIGHT = 4.0f;
 -(void)getDamaged:(int)damage {
     currentHP -= damage;
     if(currentHP <= 0) {
-        if([type compare:@"skeleton"]) {
+        if(type == 0) {
+            
+            NSLog(@"Kill skel");
             [theGame awardGold:200];
-        } else if([type compare:@"hydra"]) {
+        } else if(type == 1) {
+            
+            NSLog(@"Kill hydra");
             [theGame awardGold:350];
             if(arc4random()%100 > 95) {
                 [theGame awardDiamond:1];
                 NSLog(@"Kill hydra get diamond");
             }
-        } else if([type compare:@"boss"]) {
+        } else {
             [theGame awardGold:600];
             NSLog(@"Kill boss");
             [self bossDead];
@@ -182,6 +186,7 @@ const float ENEMY_HEALTH_BAR_HEIGHT = 4.0f;
 }
 
 -(void)bossDead {
+    NSLog(@"BossDead");
     for (Tower *towerAround in theGame.towers) {
         if([theGame circle:mySprite.position withRadius:400 collisionWithCircle:towerAround.mySprite.position collisionCircleRadius:400]) {
             [towerAround receiveDamage:100];
