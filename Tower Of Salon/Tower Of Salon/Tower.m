@@ -117,7 +117,7 @@ const float TOWER_HEALTH_BAR_HEIGHT = 4.0f;
     atkPower += 5;
     atkSpeed *= 0.9f;
     atkRange *= 1.05;
-    
+    mySprite.scale *= 1.03;
     upgrade += 1;
     
     maxHP += 10;
@@ -175,6 +175,15 @@ const float TOWER_HEALTH_BAR_HEIGHT = 4.0f;
 //                    ccc4f(0, 1.0, 0, 1.0));
     
     [super draw];
+}
+
+-(void)receiveDamage:(int)damage {
+    currentHP-=20;
+    
+    if (currentHP <= 0) {
+        [self.parent removeChild:self cleanup:YES];
+        [theGame.towers removeObject:self];
+    }
 }
 
 @end

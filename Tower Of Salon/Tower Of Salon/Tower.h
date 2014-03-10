@@ -34,5 +34,6 @@
 -(void)targetKilled;
 -(void)upgradeTower;
 -(BOOL)isUpgradable;
+-(void)receiveDamage:(int)damage;
 
 @end

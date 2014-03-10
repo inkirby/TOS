@@ -30,19 +30,19 @@ const float ENEMY_HEALTH_BAR_HEIGHT = 4.0f;
         theGame = _game;
         
         if([enemy  isEqualToString: @"skeleton"]) {
-            mySprite = [CCSprite spriteWithImageNamed:@"enemy.png"];
+            mySprite = [CCSprite spriteWithImageNamed:@"skeleton.png"];
             [self addChild:mySprite];
             maxHP = 40+(5* wave);
             walkingSpeed = 1.0;
             type = @"skeleton";
         } else if ([enemy isEqualToString:@"hydra"]) {
-            mySprite = [CCSprite spriteWithImageNamed:@"enemy.png"];
+            mySprite = [CCSprite spriteWithImageNamed:@"hydra.png"];
             [self addChild:mySprite];
             maxHP = 100+(10*wave);
             walkingSpeed = 2.5;
             type = @"hydra";
         } else if ([enemy isEqualToString:@"boss"]) {
-            mySprite = [CCSprite spriteWithImageNamed:@"enemy.png"];
+            mySprite = [CCSprite spriteWithImageNamed:@"boss.png"];
             [self addChild:mySprite];
             maxHP = 250+(20*wave);
             walkingSpeed = 3.5;
@@ -96,7 +96,8 @@ const float ENEMY_HEALTH_BAR_HEIGHT = 4.0f;
     float movementSpeed = walkingSpeed;
     
     CGPoint normalized = ccpNormalize(ccp(targetPoint.x-myPosition.x,targetPoint.y-myPosition.y));
-    mySprite.rotation = CC_RADIANS_TO_DEGREES(atan2(normalized.y, -normalized.x));
+    float rotation = CC_RADIANS_TO_DEGREES(atan2(normalized.y, -normalized.x));
+    mySprite.flipX = (rotation>90&&rotation<270)?true:false;
     myPosition = ccp(myPosition.x+normalized.x * movementSpeed,myPosition.y+normalized.y * movementSpeed);
     [mySprite setPosition:myPosition];
 }
@@ -135,7 +136,7 @@ const float ENEMY_HEALTH_BAR_HEIGHT = 4.0f;
         } else if([type compare:@"boss"]) {
             [theGame awardGold:600];
             NSLog(@"Kill boss");
-            [self drawBossCircle];
+            [self bossDead];
             if(arc4random()%100 < 80) {
                 [theGame awardDiamond:1];
                 NSLog(@"Kill boss get diamond");
@@ -178,7 +179,14 @@ const float ENEMY_HEALTH_BAR_HEIGHT = 4.0f;
 
 -(void)drawBossCircle {
     bossCircle = [[CCDrawNode alloc] init];
+}
 
+-(void)bossDead {
+    for (Tower *towerAround in theGame.towers) {
+        if([theGame circle:mySprite.position withRadius:400 collisionWithCircle:towerAround.mySprite.position collisionCircleRadius:400]) {
+            [towerAround receiveDamage:100];
+        }
+    }
 }
 
 @end
