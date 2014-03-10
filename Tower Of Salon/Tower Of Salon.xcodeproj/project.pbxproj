@@ -1637,6 +1637,11 @@
 			attributes = {
 				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = "Pisitsak Sriwimol";
+				TargetAttributes = {
+					0DB0680918C71460003217A8 = {
+						DevelopmentTeam = PUW9NQTW4B;
+					};
+				};
 			};
 			buildConfigurationList = 0DB0680518C71460003217A8 /* Build configuration list for PBXProject "Tower Of Salon" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -1979,6 +1984,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -2004,6 +2010,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Tower Of Salon/Supporting Files/Prefix.pch";
