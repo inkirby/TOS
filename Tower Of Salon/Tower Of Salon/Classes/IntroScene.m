@@ -180,7 +180,6 @@
     [receivedData setLength:0];
 }
 -(void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
-    sleep(5);
     [receivedData appendData:data];
 }
 -(void)connectionDidFinishLoading:(NSURLConnection *)connection{
