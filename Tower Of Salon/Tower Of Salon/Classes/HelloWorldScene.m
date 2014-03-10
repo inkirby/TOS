@@ -177,24 +177,24 @@
         if(temp > 95) {
             if(!isBossOut) {
                 // boss
-                Enemy *enemy = [Enemy nodeWithTheGame:self enemy:@"boss" wave:wave];
+                Enemy *enemy = [Enemy nodeWithTheGame:self enemy:2 wave:wave];
                 [enemies addObject:enemy];
                 [enemy scheduleOnce:@selector(doActivate) delay:time];
                 isBossOut = true;
                 NSLog(@"boss is out");
             } else {
-                Enemy *enemy = [Enemy nodeWithTheGame:self enemy:@"hydra" wave:wave];
+                Enemy *enemy = [Enemy nodeWithTheGame:self enemy:1 wave:wave];
                 [enemies addObject:enemy];
                 [enemy scheduleOnce:@selector(doActivate) delay:time];
             }
         } else if (temp > 60) {
             // hydra
-            Enemy *enemy = [Enemy nodeWithTheGame:self enemy:@"hydra" wave:wave];
+            Enemy *enemy = [Enemy nodeWithTheGame:self enemy:1 wave:wave];
             [enemies addObject:enemy];
             [enemy scheduleOnce:@selector(doActivate) delay:time];
         } else {
             // skeleton
-            Enemy *enemy = [Enemy nodeWithTheGame:self enemy:@"skeleton" wave:wave];
+            Enemy *enemy = [Enemy nodeWithTheGame:self enemy:0 wave:wave];
             [enemies addObject:enemy];
             [enemy scheduleOnce:@selector(doActivate) delay:time];
         }
