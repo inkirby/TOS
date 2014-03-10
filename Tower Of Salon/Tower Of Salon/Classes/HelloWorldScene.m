@@ -10,6 +10,7 @@
 #import "HelloWorldScene.h"
 #import "IntroScene.h"
 #import "Tower.h"
+#import "MainTower.h"
 #import "Waypoint.h"
 #import "Enemy.h"
 
@@ -22,6 +23,7 @@
 @implementation HelloWorldScene
 {
     CCSprite *_sprite;
+    MainTower *mtower;
 }
 @synthesize towers;
 @synthesize waypoints;
@@ -65,7 +67,6 @@
     enemies = [[NSMutableArray alloc] init];
     towers = [[NSMutableArray alloc] init];
     
-    [self loadWave:10];
     
     ui_wave_lbl = [CCLabelBMFont labelWithString:[NSString stringWithFormat:@"WAVE: %d",wave] fntFile:@"font_red_14.fnt"];
     [self addChild:ui_wave_lbl z:10];
@@ -81,6 +82,16 @@
     [self addChild:ui_gold_lbl z:10];
     [ui_gold_lbl setPosition:ccp(135,winSize.height-12)];
     [ui_gold_lbl setAnchorPoint:ccp(0,0.5)];
+    
+    
+    CCSprite *mtowerBase = [CCSprite spriteWithImageNamed:@"open_spot.png"];
+    [self addChild:mtowerBase];
+    [mtowerBase setPosition:ccp(424, 50)];
+    
+    mtower = [MainTower nodeWithTheGame:self location:mtowerBase.position];
+    mtowerBase.userObject = (__bridge id)((__bridge void *)(mtower));
+    
+    [self loadWave:10];
     
     // done
 	return self;
@@ -160,7 +171,7 @@
 //    }
     
     float time = 3;
-    bool isBossOut = false;
+    isBossOut = false;
     for(int i=0;i<NumOfEnemy+arc4random()%(wave+1);i++) {
         int temp = arc4random()%100;
         if(temp > 95) {
@@ -196,6 +207,9 @@
     
     wave++;
     [ui_wave_lbl setString:[NSString stringWithFormat:@"WAVE: %d",wave]];
+    
+    if (isBossOut) [mtower enableAttack];
+    else [mtower disableAttack];
     
     return YES;
 }
@@ -284,6 +298,7 @@
 -(void) touchBegan:(UITouch *)touch withEvent:(UIEvent *)event {
     CGPoint location = [touch locationInView:[touch view]];
     location = [[CCDirector sharedDirector] convertToGL:location];
+    
     for(CCSprite *towerBase in towerBases) {
         if(CGRectContainsPoint([towerBase boundingBox], location) && [self canBuyTower]) {
             NSLog(@"touch tower base");

@@ -83,7 +83,7 @@ const float TOWER_HEALTH_BAR_HEIGHT = 4.0f;
     CCSprite *bullet = [CCSprite spriteWithImageNamed:@"bullet.png"];
     [theGame addChild:bullet];
     [bullet setPosition:mySprite.position];
-    [bullet runAction:[CCActionSequence actions:[CCActionMoveTo actionWithDuration:0.1 position:chosenEnemy.mySprite.position],[CCActionCallFunc actionWithTarget:self selector:@selector(damageEnemy)],[CCActionRemove action],nil]];
+    [bullet runAction:[CCActionSequence actions:[CCActionMoveTo actionWithDuration:0.2 position:chosenEnemy.mySprite.position],[CCActionCallFunc actionWithTarget:self selector:@selector(damageEnemy)],[CCActionRemove action],nil]];
     
 }
 //-(void)removeBullet:(CCSprite *)bullet {
@@ -115,7 +115,8 @@ const float TOWER_HEALTH_BAR_HEIGHT = 4.0f;
 
 -(void)upgradeTower {
     atkPower += 5;
-    atkSpeed += 0.1f;
+    atkSpeed *= 0.9f;
+    atkRange *= 1.05;
     
     upgrade += 1;
     
