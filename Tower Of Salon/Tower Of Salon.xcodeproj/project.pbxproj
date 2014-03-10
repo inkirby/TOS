@@ -210,7 +210,7 @@
 		0DB06AAF18C71463003217A8 /* LICENSE_Chipmunk.txt in Resources */ = {isa = PBXBuildFile; fileRef = 0DB06AAE18C71463003217A8 /* LICENSE_Chipmunk.txt */; };
 		0DB06AB318C71463003217A8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DB06AB218C71463003217A8 /* main.m */; };
 		0DB06AB718C71463003217A8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DB06AB618C71463003217A8 /* AppDelegate.m */; };
-		0DB06ABA18C71463003217A8 /* HelloWorldScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DB06AB918C71463003217A8 /* HelloWorldScene.m */; };
+		0DB06ABA18C71463003217A8 /* HelloWorldScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DB06AB918C71463003217A8 /* HelloWorldScene.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		0DB06ABD18C71463003217A8 /* IntroScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DB06ABC18C71463003217A8 /* IntroScene.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		0DB06AC718C9AB2C003217A8 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0DB06AC618C9AB2C003217A8 /* GameKit.framework */; };
 		0DB06AD018CB6030003217A8 /* Tower.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DB06ACF18CB6030003217A8 /* Tower.m */; };

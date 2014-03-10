@@ -35,6 +35,8 @@
     NSInteger attack;
     NSInteger hp;
     NSInteger speed;
+    
+    NSMutableData *receivedData;
 }
 
 @property (nonatomic,strong) NSMutableArray *towers;

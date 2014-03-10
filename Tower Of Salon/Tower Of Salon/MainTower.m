@@ -48,7 +48,7 @@ const float MAIN_TOWER_HEALTH_BAR_HEIGHT = 4.0f;
         
         switch (atkType) {
             case 1: // arrow
-                atkPower = 300;
+                atkPower = 3;
                 atkSpeed = 2;
                 mySprite = [CCSprite spriteWithImageNamed:@"maintowerarrow.png"];
                 break;
@@ -58,7 +58,7 @@ const float MAIN_TOWER_HEALTH_BAR_HEIGHT = 4.0f;
                 mySprite = [CCSprite spriteWithImageNamed:@"maintowerlaser.png"];
                 break;
             default: // bullet
-                atkPower = 120;
+                atkPower = 1;
                 atkSpeed = 1;
                 mySprite = [CCSprite spriteWithImageNamed:@"maintowerbullet.png"];
                 break;

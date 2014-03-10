@@ -217,8 +217,10 @@
 -(void)enemyGotKilled {
     enemyNum--;
     if (enemyNum <= 0) {
-        if(![self loadWave:10]) {
-            NSLog(@"You win!");
+        if(gameEnded) {
+            
+        } else {
+            [self loadWave:10];
         }
     }
 }
@@ -234,14 +236,15 @@
     if(!gameEnded) {
         gameEnded = YES;
         NSLog(@"Game Over");
+        [self updateUserData];
     }
 }
 -(void)awardGold:(int)gold {
     playerGold += gold;
     [ui_gold_lbl setString:[NSString stringWithFormat:@"GOLD: %d",playerGold]];
 }
--(void)awardDiamond:(int)diamond {
-    playerDiamond += diamond;
+-(void)awardDiamond:(int)tdiamond {
+    playerDiamond += tdiamond;
 }
 -(void)setBaseValue:(NSInteger)tdiamond :(NSInteger)tattack :(NSInteger)thp :(NSInteger)tspeed {
     diamond = tdiamond;
@@ -250,11 +253,57 @@
     speed = tspeed;
 }
 
+-(void)updateUserData {
+    
+    NSLog(@"start update service");
+    
+    NSString *uid = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
+    
+    NSLog(@"%@",uid);
+    
+    NSString *post = [NSString stringWithFormat:@"&UID=%@&Diamond=%d&Attack=%d&HP=%d&Speed=%d",uid,(diamond+playerDiamond),attack,hp,speed];
+    NSLog(@"string = %@",post);
+    NSData *postData = [post dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
+    NSString *postLength = [NSString stringWithFormat:@"%d",[postData length]];
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
+    ;
+    [request setURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://egco-towerofsalon.meximas.com/db_updateuser.php"]]];
+    [request setHTTPMethod:@"POST"];
+    [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
+    [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
+    [request setHTTPBody:postData];
+    NSURLConnection *conn = [[NSURLConnection alloc]initWithRequest:request delegate:self];
+    
+    
+    if (conn) {
+        self->receivedData = [[NSMutableData data] retain];
+        NSLog(@"conn");
+    }
+    
+    NSLog(@"end service");
+}
+-(void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
+    [receivedData setLength:0];
+}
+-(void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
+    [receivedData appendData:data];
+}
+-(void)connectionDidFinishLoading:(NSURLConnection *)connection{
+    NSLog(@"Finish");
+    NSLog(@"data == %@",[[NSString alloc] initWithData:receivedData encoding:NSASCIIStringEncoding]);
+    
+    IntroScene *iScene = [[IntroScene alloc] init];
+    [[CCDirector sharedDirector] replaceScene:iScene];
+    
+}
+
+
 // -----------------------------------------------------------------------
 
 - (void)dealloc
 {
     // clean up code goes here
+    [super dealloc];
 }
 
 // -----------------------------------------------------------------------
