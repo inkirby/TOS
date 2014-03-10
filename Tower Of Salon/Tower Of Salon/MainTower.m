@@ -41,10 +41,10 @@ const float MAIN_TOWER_HEALTH_BAR_HEIGHT = 4.0f;
         canAttack = false;
         
         // receivable vars
-        atkType = 0;
-        int AtkUpgraded = 0;
-        int SpdUpgraded = 0;
-        int HPUpgraded = 0;
+        atkType = 2;
+        AtkUpgraded = 0;
+        SpdUpgraded = 0;
+        HPUpgraded = 0;
         
         switch (atkType) {
             case 1: // arrow
@@ -89,7 +89,6 @@ const float MAIN_TOWER_HEALTH_BAR_HEIGHT = 4.0f;
     
     healthBar.position = ccp(mySprite.position.x - MAIN_TOWER_HEALTH_BAR_WIDTH/2.0f + 0.5f, mySprite.position.y - mySprite.contentSize.height/2.0f - 10.0f + 0.5f);
     
-    [self drawHealthBar:healthBar hp:currentHP];
     
     // this rotate turret to enemy
     
@@ -186,57 +185,14 @@ const float MAIN_TOWER_HEALTH_BAR_HEIGHT = 4.0f;
     canAttack = true;
 }
 
--(void)drawHealthBar:(CCDrawNode *)node hp:(int)hp {
-    [node clear];
-    
-    CGPoint verts[4];
-    verts[0] = ccp(0.0f, 0.0f);
-    verts[1] = ccp(0.0f, MAIN_TOWER_HEALTH_BAR_HEIGHT - 1.0f);
-    verts[2] = ccp(MAIN_TOWER_HEALTH_BAR_WIDTH - 1.0f, MAIN_TOWER_HEALTH_BAR_HEIGHT - 1.0f);
-    verts[3] = ccp(MAIN_TOWER_HEALTH_BAR_WIDTH - 1.0f, 0.0f);
-    
-    //ccColor4F clearColor = ccc4f(0.0f, 0.0f, 0.0f, 0.0f);
-    //ccColor4F borderColor = ccc4f(35.0f/255.0f, 28.0f/255.0f, 40.0f/255.0f, 1.0f);
-    //ccColor4F fillColor = ccc4f(113.0f/255.0f, 202.0f/255.0f, 53.0f/255.0f, 1.0f);
-    
-    CCColor *clearColors = [CCColor redColor];
-    CCColor *borderColors = [CCColor blackColor];
-    CCColor *fillColors = [CCColor greenColor];
-    
-    [node drawPolyWithVerts:verts count:4 fillColor:clearColors borderWidth:1.0f borderColor:borderColors];
-    
-    verts[0].x += 0.5f;
-    verts[0].y += 0.5f;
-    verts[1].x += 0.5f;
-    verts[1].y -= 0.5f;
-    verts[2].x = (MAIN_TOWER_HEALTH_BAR_WIDTH - 2.0f)*currentHP/maxHP + 0.5f;
-    verts[2].y -= 0.5f;
-    verts[3].x = verts[2].x;
-    verts[3].y += 0.5f;
-    
-    [node drawPolyWithVerts:verts count:4 fillColor:fillColors borderWidth:0.0f borderColor:clearColors];
+-(void)setUpgradeAtk:(int)atk {
+    AtkUpgraded = atk;
 }
-
--(void)draw {
-    
-    ccDrawColor4B(255,255,255,255);
-    ccDrawCircle(mySprite.position,atkRange,360,30,false);
-    
-    CGPoint myPosition = mySprite.position;
-    
-    //    ccDrawSolidRect(ccp(myPosition.x+HEALTH_BAR_ORIGIN,
-    //                        myPosition.y+16),
-    //                    ccp(myPosition.x+HEALTH_BAR_ORIGIN+HEALTH_BAR_WIDTH,
-    //                        myPosition.y+14),
-    //                    ccc4f(1.0, 0, 0, 1.0));
-    //
-    //    ccDrawSolidRect(ccp(myPosition.x+HEALTH_BAR_ORIGIN,
-    //                        myPosition.y+16),
-    //                    ccp(myPosition.x+HEALTH_BAR_ORIGIN + (float)(currentHP * HEALTH_BAR_WIDTH)/maxHP,
-    //                        myPosition.y+14),
-    //                    ccc4f(0, 1.0, 0, 1.0));
-    
-    [super draw];
+-(void)setUpgradeSpd:(int)spd {
+    SpdUpgraded = spd;
+}
+-(void)setUpgradeHP:(int)hp {
+    HPUpgraded = hp;
 }
 
 @end
