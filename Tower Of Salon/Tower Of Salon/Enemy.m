@@ -108,10 +108,11 @@ const float ENEMY_HEALTH_BAR_HEIGHT = 4.0f;
     }
     
     [self.parent removeChild:self cleanup:YES];
-    [theGame.enemies removeObject:self];
     
     // notify that enemy is killed
     [theGame enemyGotKilled];
+    
+    [theGame.enemies removeObject:self];
 }
 
 -(void)getAttacked:(Tower *)attacker {

@@ -58,12 +58,14 @@
     playerHP = 5;
     playerGold = 1000;
     playerDiamond = 0;
+    enemyNum = 0;
     
     [self loadTowerPositions];
     [self addWaypoints];
     enemies = [[NSMutableArray alloc] init];
     towers = [[NSMutableArray alloc] init];
-    [self loadWave];
+    
+    [self loadWave:10];
     
     ui_wave_lbl = [CCLabelBMFont labelWithString:[NSString stringWithFormat:@"WAVE: %d",wave] fntFile:@"font_red_14.fnt"];
     [self addChild:ui_wave_lbl z:10];
@@ -139,7 +141,7 @@
     return NO;
     
 }
--(BOOL)loadWave {
+-(BOOL)loadWave:(int)NumOfEnemy {
 //    NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"Waves" ofType:@"plist"];
 //    NSArray *waveData = [NSArray arrayWithContentsOfFile:plistPath];
     
@@ -158,7 +160,7 @@
     
     float time = 3;
     bool isBossOut = false;
-    for(int i=0;i<10+arc4random()%(wave+1);i++) {
+    for(int i=0;i<NumOfEnemy+arc4random()%(wave+1);i++) {
         int temp = arc4random()%100;
         if(temp > 95) {
             if(!isBossOut) {
@@ -186,6 +188,7 @@
         }
         
         time += ((double)arc4random() / ARC4RANDOM_MAX);
+        enemyNum++;
     }
     
     NSLog(@"enemy =%d",[enemies count]);
@@ -197,8 +200,9 @@
 }
 
 -(void)enemyGotKilled {
-    if ([enemies count] <= 0) {
-        if(![self loadWave]) {
+    enemyNum--;
+    if (enemyNum <= 0) {
+        if(![self loadWave:10]) {
             NSLog(@"You win!");
         }
     }

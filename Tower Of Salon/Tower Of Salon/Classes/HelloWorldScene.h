@@ -24,6 +24,7 @@
     int playerHP;
     int playerGold;
     int playerDiamond;
+    int enemyNum;
     BOOL gameEnded;
     CCLabelBMFont *ui_hp_lbl;
     CCLabelBMFont *ui_gold_lbl;
