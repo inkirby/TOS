@@ -23,6 +23,15 @@ const float MAIN_TOWER_HEALTH_BAR_HEIGHT = 4.0f;
 
 -(id) initWithTheGame:(HelloWorldScene *)_game location:(CGPoint)location {
     if( (self = [super init])) {
+        
+        self.motionManager = [[CMMotionManager alloc] init];
+        self.motionManager.accelerometerUpdateInterval = 1;
+        self.motionManager.gyroUpdateInterval = 1;
+        
+        self.locationManager = [[CLLocationManager alloc] init];
+        self.locationManager.delegate = self;
+        [self.locationManager startUpdatingHeading];
+        
         theGame = _game;
         maxHP = 1000;
         atkRange = 460;
@@ -81,6 +90,9 @@ const float MAIN_TOWER_HEALTH_BAR_HEIGHT = 4.0f;
     healthBar.position = ccp(mySprite.position.x - MAIN_TOWER_HEALTH_BAR_WIDTH/2.0f + 0.5f, mySprite.position.y - mySprite.contentSize.height/2.0f - 10.0f + 0.5f);
     
     [self drawHealthBar:healthBar hp:currentHP];
+    
+    // this rotate turret to enemy
+    /*
     if(chosenEnemy) {
         CGPoint normalized = ccpNormalize(ccp(chosenEnemy.mySprite.position.x-mySprite.position.x,chosenEnemy.mySprite.position.y-mySprite.position.y));
         mySprite.rotation = CC_RADIANS_TO_DEGREES(atan2(normalized.y, -normalized.x))+90;
@@ -96,6 +108,11 @@ const float MAIN_TOWER_HEALTH_BAR_HEIGHT = 4.0f;
             }
         }
     }
+     */
+    
+    // this rotate turret to compass direction
+    mySprite.rotation = [self.locationManager heading].magneticHeading;
+    
 }
 -(void)attackEnemy {
     [self schedule:@selector(shootWeapon) interval:atkSpeed];
@@ -129,9 +146,7 @@ const float MAIN_TOWER_HEALTH_BAR_HEIGHT = 4.0f;
         [bullet runAction:[CCActionSequence actions:[CCActionMoveTo actionWithDuration:0.25 position:chosenEnemy.mySprite.position],[CCActionCallFunc actionWithTarget:self selector:@selector(damageEnemy)],[CCActionRemove action],nil]];
     }
 }
-//-(void)removeBullet:(CCSprite *)bullet {
-//    [bullet removeFromParentAndCleanup:YES];
-//}
+
 -(void)damageEnemy {
     [chosenEnemy getDamaged:atkPower];
 }

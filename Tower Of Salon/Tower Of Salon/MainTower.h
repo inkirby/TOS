@@ -7,6 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <CoreMotion/CoreMotion.h>
+#import <CoreLocation/CoreLocation.h>
 
 #import "CCNode.h"
 #import "cocos2d.h"
@@ -36,6 +38,9 @@
 
 @property (nonatomic,weak) HelloWorldScene *theGame;
 @property (nonatomic,strong) CCSprite *mySprite;
+
+@property (nonatomic,strong) CMMotionManager *motionManager;
+@property (nonatomic,strong) CLLocationManager *locationManager;
 
 +(id)nodeWithTheGame:(HelloWorldScene *)_game location:(CGPoint) location;
 -(id)initWithTheGame:(HelloWorldScene *)_game location:(CGPoint) location;
