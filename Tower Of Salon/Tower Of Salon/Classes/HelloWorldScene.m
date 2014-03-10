@@ -13,6 +13,8 @@
 #import "Waypoint.h"
 #import "Enemy.h"
 
+#define ARC4RANDOM_MAX 0x100000000
+
 // -----------------------------------------------------------------------
 #pragma mark - HelloWorldScene
 // -----------------------------------------------------------------------
@@ -60,6 +62,7 @@
     [self loadTowerPositions];
     [self addWaypoints];
     enemies = [[NSMutableArray alloc] init];
+    towers = [[NSMutableArray alloc] init];
     [self loadWave];
     
     ui_wave_lbl = [CCLabelBMFont labelWithString:[NSString stringWithFormat:@"WAVE: %d",wave] fntFile:@"font_red_14.fnt"];
@@ -137,20 +140,52 @@
     
 }
 -(BOOL)loadWave {
-    NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"Waves" ofType:@"plist"];
-    NSArray *waveData = [NSArray arrayWithContentsOfFile:plistPath];
+//    NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"Waves" ofType:@"plist"];
+//    NSArray *waveData = [NSArray arrayWithContentsOfFile:plistPath];
     
-    if(wave >= [waveData count]) {
-        return NO;
-    }
+//    if(wave >= [waveData count]) {
+//        return NO;
+//    }
     
     NSLog(@"wave=%d",wave);
     
-    NSArray *currentWaveData = [NSArray arrayWithArray:[waveData objectAtIndex:wave]];
-    for(NSDictionary *enemyData in currentWaveData) {
-        Enemy *enemy = [Enemy nodeWithTheGame:self enemy:[enemyData objectForKey:@"data"]];
-        [enemies addObject:enemy];
-        [enemy scheduleOnce:@selector(doActivate) delay:[[enemyData objectForKey:@"spawnTime"] floatValue]];
+//    NSArray *currentWaveData = [NSArray arrayWithArray:[waveData objectAtIndex:wave]];
+//    for(NSDictionary *enemyData in currentWaveData) {
+//        Enemy *enemy = [Enemy nodeWithTheGame:self enemy:[enemyData objectForKey:@"data"]];
+//        [enemies addObject:enemy];
+//        [enemy scheduleOnce:@selector(doActivate) delay:[[enemyData objectForKey:@"spawnTime"] floatValue]];
+//    }
+    
+    float time = 3;
+    bool isBossOut = false;
+    for(int i=0;i<10+arc4random()%(wave+1);i++) {
+        int temp = arc4random()%100;
+        if(temp > 95) {
+            if(!isBossOut) {
+                // boss
+                Enemy *enemy = [Enemy nodeWithTheGame:self enemy:@"boss" wave:wave];
+                [enemies addObject:enemy];
+                [enemy scheduleOnce:@selector(doActivate) delay:time];
+                isBossOut = true;
+                NSLog(@"boss is out");
+            } else {
+                Enemy *enemy = [Enemy nodeWithTheGame:self enemy:@"hydra" wave:wave];
+                [enemies addObject:enemy];
+                [enemy scheduleOnce:@selector(doActivate) delay:time];
+            }
+        } else if (temp > 60) {
+            // hydra
+            Enemy *enemy = [Enemy nodeWithTheGame:self enemy:@"hydra" wave:wave];
+            [enemies addObject:enemy];
+            [enemy scheduleOnce:@selector(doActivate) delay:time];
+        } else {
+            // skeleton
+            Enemy *enemy = [Enemy nodeWithTheGame:self enemy:@"skeleton" wave:wave];
+            [enemies addObject:enemy];
+            [enemy scheduleOnce:@selector(doActivate) delay:time];
+        }
+        
+        time += ((double)arc4random() / ARC4RANDOM_MAX);
     }
     
     NSLog(@"enemy =%d",[enemies count]);
@@ -185,6 +220,9 @@
 -(void)awardGold:(int)gold {
     playerGold += gold;
     [ui_gold_lbl setString:[NSString stringWithFormat:@"GOLD: %d",playerGold]];
+}
+-(void)awardDiamond:(int)diamond {
+    playerDiamond += diamond;
 }
 
 // -----------------------------------------------------------------------
@@ -236,14 +274,33 @@
     CGPoint location = [touch locationInView:[touch view]];
     location = [[CCDirector sharedDirector] convertToGL:location];
     for(CCSprite *towerBase in towerBases) {
-        if(CGRectContainsPoint([towerBase boundingBox], location) && [self canBuyTower] && !towerBase.userObject) {
-            Tower *tower = [Tower nodeWithTheGame:self location:towerBase.position];
-            [towers addObject:tower];
-            towerBase.userObject = (__bridge id)((__bridge void *)(tower));
-            playerGold -= TOWER_COST;
-            
-            [ui_gold_lbl setString:[NSString stringWithFormat:@"GOLD: %d",playerGold]];
+        if(CGRectContainsPoint([towerBase boundingBox], location) && [self canBuyTower]) {
             NSLog(@"touch tower base");
+            if(!towerBase.userObject) {
+                    Tower *tower = [Tower nodeWithTheGame:self location:towerBase.position];
+                    [towers addObject:tower];
+                    NSLog(@"towers count = %d",[towers count]);
+                    towerBase.userObject = (__bridge id)((__bridge void *)(tower));
+                    playerGold -= TOWER_COST;
+                
+                    [ui_gold_lbl setString:[NSString stringWithFormat:@"GOLD: %d",playerGold]];
+                    NSLog(@"buy tower");
+                
+            } else {
+                for(Tower *tower in towers) {
+                    if(CGPointEqualToPoint(tower.mySprite.position, towerBase.position)) {
+                        if([tower isUpgradable]) {
+                            [tower upgradeTower];
+                            playerGold -= TOWER_COST;
+                            [ui_gold_lbl setString:[NSString stringWithFormat:@"GOLD: %d",playerGold]];
+                            NSLog(@"upgrade tower");
+                        } else {
+                            NSLog(@"cannot upgrade tower more");
+                        }
+                        break;
+                    }
+                }
+            }
         }
     }
 

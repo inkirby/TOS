@@ -20,6 +20,7 @@
     float atkSpeed;
     int maxHP;
     int currentHP;
+    int upgrade;
     BOOL isAttacking;
     Enemy *chosenEnemy;
     CCDrawNode *healthBar;
@@ -31,5 +32,7 @@
 +(id)nodeWithTheGame:(HelloWorldScene *)_game location:(CGPoint) location;
 -(id)initWithTheGame:(HelloWorldScene *)_game location:(CGPoint) location;
 -(void)targetKilled;
+-(void)upgradeTower;
+-(BOOL)isUpgradable;
 
 @end

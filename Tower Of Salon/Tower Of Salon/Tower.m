@@ -31,6 +31,8 @@ const float TOWER_HEALTH_BAR_HEIGHT = 4.0f;
         maxHP = 50;
         currentHP = maxHP;
         
+        upgrade = 0;
+        
         healthBar = [[CCDrawNode alloc] init];
         healthBar.contentSize = CGSizeMake(TOWER_HEALTH_BAR_WIDTH, TOWER_HEALTH_BAR_HEIGHT);
         [self addChild:healthBar];
@@ -102,6 +104,23 @@ const float TOWER_HEALTH_BAR_HEIGHT = 4.0f;
         chosenEnemy = nil;
     }
     [self unschedule:@selector(shootWeapon)];
+}
+
+-(BOOL)isUpgradable {
+    if(upgrade > 9) {
+        return NO;
+    }
+    return YES;
+}
+
+-(void)upgradeTower {
+    atkPower += 5;
+    atkSpeed += 0.1f;
+    
+    upgrade += 1;
+    
+    maxHP += 10;
+    currentHP = maxHP;
 }
 
 -(void)drawHealthBar:(CCDrawNode *)node hp:(int)hp {

@@ -15,6 +15,7 @@
 
 @interface Enemy : CCNode {
     CGPoint myPosition;
+    NSString *type;
     int maxHP;
     int currentHP;
     float walkingSpeed;
@@ -22,13 +23,14 @@
     BOOL active;
     NSMutableArray *attackedBy;
     CCDrawNode *healthBar;
+    CCDrawNode *bossCircle;
 }
 
 @property (nonatomic,assign) HelloWorldScene *theGame;
 @property (nonatomic,assign) CCSprite *mySprite;
 
-+(id)nodeWithTheGame:(HelloWorldScene *)_game enemy:(NSString *)enemy;
--(id)initWithTheGame:(HelloWorldScene *)_game enemy:(NSString *)enemy;
++(id)nodeWithTheGame:(HelloWorldScene *)_game enemy:(NSString *)enemy wave:(NSInteger)wave;
+-(id)initWithTheGame:(HelloWorldScene *)_game enemy:(NSString *)enemy wave:(NSInteger)wave;
 -(void)doActivate;
 -(void)getRemoved;
 -(void)getAttacked:(Tower *)attacker;
