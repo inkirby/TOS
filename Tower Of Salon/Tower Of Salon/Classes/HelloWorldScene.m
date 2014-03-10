@@ -142,6 +142,7 @@
     
 }
 -(BOOL)loadWave:(int)NumOfEnemy {
+    
 //    NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"Waves" ofType:@"plist"];
 //    NSArray *waveData = [NSArray arrayWithContentsOfFile:plistPath];
     
@@ -227,6 +228,12 @@
 }
 -(void)awardDiamond:(int)diamond {
     playerDiamond += diamond;
+}
+-(void)setBaseValue:(NSInteger)tdiamond :(NSInteger)tattack :(NSInteger)thp :(NSInteger)tspeed {
+    diamond = tdiamond;
+    attack = tattack;
+    hp = thp;
+    speed = tspeed;
 }
 
 // -----------------------------------------------------------------------

@@ -19,12 +19,20 @@
  *  Main usage for CCLayer now, is to make colored backgrounds (rectangles)
  *
  */
-@interface IntroScene : CCScene
+@interface IntroScene : CCScene {
+    NSURLConnection *conn;
+    NSMutableData *receivedData;
+    NSInteger diamond;
+    NSInteger attack;
+    NSInteger hp;
+    NSInteger speed;
+}
 
 // -----------------------------------------------------------------------
 
 + (IntroScene *)scene;
 - (id)init;
+- (void)getUserData;
 
 // -----------------------------------------------------------------------
 @end

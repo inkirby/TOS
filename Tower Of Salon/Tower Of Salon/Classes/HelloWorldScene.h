@@ -29,11 +29,17 @@
     CCLabelBMFont *ui_hp_lbl;
     CCLabelBMFont *ui_gold_lbl;
     CCLabelBMFont *ui_wave_lbl;
+    
+    NSInteger diamond;
+    NSInteger attack;
+    NSInteger hp;
+    NSInteger speed;
 }
 
 @property (nonatomic,strong) NSMutableArray *towers;
 @property (nonatomic,strong) NSMutableArray *waypoints;
 @property (nonatomic,strong) NSMutableArray *enemies;
+
 
 // -----------------------------------------------------------------------
 
@@ -47,6 +53,7 @@ void ccFillPoly(CGPoint *poli,int points,BOOL closePolygon);
 - (void) doGameOver;
 - (void) awardGold:(int)gold;
 - (void) awardDiamond:(int)diamond;
+- (void) setBaseValue:(NSInteger)tdiamond :(NSInteger)tattack :(NSInteger)thp :(NSInteger)tspeed;
 
 // -----------------------------------------------------------------------
 @end
