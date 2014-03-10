@@ -92,7 +92,7 @@ const float MAIN_TOWER_HEALTH_BAR_HEIGHT = 4.0f;
     [self drawHealthBar:healthBar hp:currentHP];
     
     // this rotate turret to enemy
-    /*
+    
     if(chosenEnemy) {
         CGPoint normalized = ccpNormalize(ccp(chosenEnemy.mySprite.position.x-mySprite.position.x,chosenEnemy.mySprite.position.y-mySprite.position.y));
         mySprite.rotation = CC_RADIANS_TO_DEGREES(atan2(normalized.y, -normalized.x))+90;
@@ -108,10 +108,10 @@ const float MAIN_TOWER_HEALTH_BAR_HEIGHT = 4.0f;
             }
         }
     }
-     */
+    
     
     // this rotate turret to compass direction
-    mySprite.rotation = [self.locationManager heading].magneticHeading;
+    //mySprite.rotation = [self.locationManager heading].magneticHeading;
     
 }
 -(void)attackEnemy {
@@ -119,7 +119,7 @@ const float MAIN_TOWER_HEALTH_BAR_HEIGHT = 4.0f;
 }
 -(void)chosenEnemyForAttack:(Enemy *)enemy {
     chosenEnemy = nil;
-    if (!canAttack) return;
+    //if (!canAttack) return;
     chosenEnemy = enemy;
     [self attackEnemy];
     [enemy getAttacked:self];
