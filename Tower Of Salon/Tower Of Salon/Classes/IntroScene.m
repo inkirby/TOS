@@ -59,6 +59,7 @@
 -(void)setLabel {
     NSString *diamondS = [NSString stringWithFormat:@"Diamond = %d",diamond];
 
+    [diamondL setString:@""];
     diamondL = [CCLabelTTF labelWithString:diamondS fontName:@"Verdana-Bold" fontSize:18.0f];
     diamondL.positionType = CCPositionTypeNormalized;
     diamondL.color = [CCColor blueColor];
@@ -67,6 +68,7 @@
     
     NSString *attackS = [NSString stringWithFormat:@"Attack = %d",attack];
     
+    [attckL setString:@""];
     attckL = [CCLabelTTF labelWithString:attackS fontName:@"Verdana-Bold" fontSize:18.0f];
     attckL.positionType = CCPositionTypeNormalized;
     attckL.color = [CCColor whiteColor];
@@ -75,6 +77,7 @@
     
     NSString *hpS = [NSString stringWithFormat:@"HP = %d",hp];
     
+    [hpL setString:@""];
     hpL = [CCLabelTTF labelWithString:hpS fontName:@"Verdana-Bold" fontSize:18.0f];
     hpL.positionType = CCPositionTypeNormalized;
     hpL.color = [CCColor whiteColor];
@@ -83,6 +86,7 @@
     
     NSString *speedS = [NSString stringWithFormat:@"Speed = %d",speed];
     
+    [speedL setString:@""];
     speedL = [CCLabelTTF labelWithString:speedS fontName:@"Verdana-Bold" fontSize:18.0f];
     speedL.positionType = CCPositionTypeNormalized;
     speedL.color = [CCColor whiteColor];
@@ -95,24 +99,55 @@
     attackP.color = [CCColor whiteColor];
     attackP.position = ccp(0.2f,0.6f);
     [self addChild:attackP];
+    [attackP setTarget:self selector:@selector(upAttack)];
     
     CCButton *hpP = [CCButton buttonWithTitle:@"[+]" fontName:@"Verdana-Bold" fontSize:18.0f];
     hpP.positionType = CCPositionTypeNormalized;
     hpP.color = [CCColor whiteColor];
     hpP.position = ccp(0.2f,0.5f);
     [self addChild:hpP];
+    [hpP setTarget:self selector:@selector(upHP)];
     
     CCButton *speedP = [CCButton buttonWithTitle:@"[+]" fontName:@"Verdana-Bold" fontSize:18.0f];
     speedP.positionType = CCPositionTypeNormalized;
     speedP.color = [CCColor whiteColor];
     speedP.position = ccp(0.2f,0.4f);
     [self addChild:speedP];
+    [speedP setTarget:self selector:@selector(upSpeed)];
     
     CCButton *startGame = [CCButton buttonWithTitle:@"[Start Game]" fontName:@"Verdana-Bold" fontSize:18.0f];
     startGame.positionType = CCPositionTypeNormalized;
     startGame.color = [CCColor redColor];
     startGame.position = ccp(0.5f,0.3f);
     [self addChild:startGame];
+    [startGame setTarget:self selector:@selector(startingGame)];
+}
+-(void)upAttack {
+    if(diamond > 0) {
+        attack++;
+        diamond--;
+        [self setLabel];
+    }
+}
+-(void)upHP {
+    if(diamond > 0) {
+        hp++;
+        diamond--;
+        [self setLabel];
+    }
+}
+-(void)upSpeed {
+    if(diamond > 0) {
+        speed++;
+        diamond--;
+        [self setLabel];
+    }
+}
+-(void)startingGame {
+    HelloWorldScene *hScene = [[HelloWorldScene alloc] init];
+    [hScene setBaseValue:diamond :attack :hp :speed];
+    
+    [[CCDirector sharedDirector] replaceScene:hScene];
 }
 -(void)getUserData {
     
@@ -162,11 +197,6 @@
             NSLog(@"%d %d %d %d",diamond,attack,hp,speed);
             [self setLabel];
             [self setButton];
-            
-            //HelloWorldScene *hScene = [[HelloWorldScene alloc] init];
-            //[hScene setBaseValue:diamond :attack :hp :speed];
-            
-            //[[CCDirector sharedDirector] replaceScene:hScene];
             
         } else {
             NSLog(@"Error");
