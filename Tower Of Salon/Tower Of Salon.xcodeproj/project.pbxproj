@@ -216,6 +216,7 @@
 		0DB06AD018CB6030003217A8 /* Tower.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DB06ACF18CB6030003217A8 /* Tower.m */; };
 		0DB06AD318CB6B10003217A8 /* Waypoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DB06AD218CB6B10003217A8 /* Waypoint.m */; };
 		0DB06AD818CB7DA8003217A8 /* Enemy.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DB06AD718CB7DA8003217A8 /* Enemy.m */; };
+		901B968D18CE020900ED14CD /* MainTower.m in Sources */ = {isa = PBXBuildFile; fileRef = 901B968C18CE020900ED14CD /* MainTower.m */; };
 		904D7A2A18CDA9880042105E /* 8bitDungeonLevel.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 904D7A1118CDA9880042105E /* 8bitDungeonLevel.mp3 */; };
 		904D7A2B18CDA9880042105E /* bg-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 904D7A1218CDA9880042105E /* bg-hd.png */; };
 		904D7A2C18CDA9880042105E /* bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 904D7A1318CDA9880042105E /* bg.png */; };
@@ -689,6 +690,8 @@
 		0DB06AD218CB6B10003217A8 /* Waypoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Waypoint.m; sourceTree = "<group>"; };
 		0DB06AD618CB7DA8003217A8 /* Enemy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Enemy.h; sourceTree = "<group>"; };
 		0DB06AD718CB7DA8003217A8 /* Enemy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Enemy.m; sourceTree = "<group>"; };
+		901B968B18CE020900ED14CD /* MainTower.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainTower.h; sourceTree = "<group>"; };
+		901B968C18CE020900ED14CD /* MainTower.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainTower.m; sourceTree = "<group>"; };
 		904D7A1118CDA9880042105E /* 8bitDungeonLevel.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = 8bitDungeonLevel.mp3; sourceTree = "<group>"; };
 		904D7A1218CDA9880042105E /* bg-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg-hd.png"; sourceTree = "<group>"; };
 		904D7A1318CDA9880042105E /* bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg.png; sourceTree = "<group>"; };
@@ -1640,6 +1643,8 @@
 				0DB06AD218CB6B10003217A8 /* Waypoint.m */,
 				0DB06AD618CB7DA8003217A8 /* Enemy.h */,
 				0DB06AD718CB7DA8003217A8 /* Enemy.m */,
+				901B968B18CE020900ED14CD /* MainTower.h */,
+				901B968C18CE020900ED14CD /* MainTower.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -1788,6 +1793,7 @@
 				0DB069CE18C71462003217A8 /* IOSVersion.m in Sources */,
 				0DB0688318C71461003217A8 /* CCDirector.m in Sources */,
 				0DB069EE18C71462003217A8 /* CCScrollView.m in Sources */,
+				901B968D18CE020900ED14CD /* MainTower.m in Sources */,
 				0DB068E118C71461003217A8 /* CCResponder.m in Sources */,
 				0DB0687818C71461003217A8 /* CCClippingNode.m in Sources */,
 				0DB0690B18C71461003217A8 /* CCSpriteBatchNode.m in Sources */,

@@ -1,18 +1,18 @@
 //
-//  Tower.m
+//  MainTower.m
 //  Tower Of Salon
 //
 //  Created by Pisitsak Sriwimol on 3/8/2557 BE.
 //  Copyright (c) 2557 Pisitsak Sriwimol. All rights reserved.
 //
 
-#import "Tower.h"
+#import "MainTower.h"
 #import "Enemy.h"
 
-const float TOWER_HEALTH_BAR_WIDTH = 40.0f;
-const float TOWER_HEALTH_BAR_HEIGHT = 4.0f;
+const float MAIN_TOWER_HEALTH_BAR_WIDTH = 40.0f;
+const float MAIN_TOWER_HEALTH_BAR_HEIGHT = 4.0f;
 
-@implementation Tower
+@implementation MainTower
 
 @synthesize mySprite;
 @synthesize theGame;
@@ -24,17 +24,17 @@ const float TOWER_HEALTH_BAR_HEIGHT = 4.0f;
 -(id) initWithTheGame:(HelloWorldScene *)_game location:(CGPoint)location {
     if( (self = [super init])) {
         theGame = _game;
-        atkRange = 70;
-        atkPower = 10;
-        atkSpeed = 1;
+        atkRange = 1000;
+        atkPower = 1;
+        atkSpeed = .1;
         
-        maxHP = 50;
+        maxHP = 500;
         currentHP = maxHP;
         
         upgrade = 0;
         
         healthBar = [[CCDrawNode alloc] init];
-        healthBar.contentSize = CGSizeMake(TOWER_HEALTH_BAR_WIDTH, TOWER_HEALTH_BAR_HEIGHT);
+        healthBar.contentSize = CGSizeMake(MAIN_TOWER_HEALTH_BAR_WIDTH, MAIN_TOWER_HEALTH_BAR_HEIGHT);
         [self addChild:healthBar];
         
         mySprite = [CCSprite spriteWithImageNamed:@"tower.png"];
@@ -51,7 +51,7 @@ const float TOWER_HEALTH_BAR_HEIGHT = 4.0f;
 
 -(void)update:(CCTime)delta {
     
-    healthBar.position = ccp(mySprite.position.x - TOWER_HEALTH_BAR_WIDTH/2.0f + 0.5f, mySprite.position.y - mySprite.contentSize.height/2.0f - 10.0f + 0.5f);
+    healthBar.position = ccp(mySprite.position.x - MAIN_TOWER_HEALTH_BAR_WIDTH/2.0f + 0.5f, mySprite.position.y - mySprite.contentSize.height/2.0f - 10.0f + 0.5f);
     
     [self drawHealthBar:healthBar hp:currentHP];
     if(chosenEnemy) {
@@ -83,7 +83,7 @@ const float TOWER_HEALTH_BAR_HEIGHT = 4.0f;
     CCSprite *bullet = [CCSprite spriteWithImageNamed:@"bullet.png"];
     [theGame addChild:bullet];
     [bullet setPosition:mySprite.position];
-    [bullet runAction:[CCActionSequence actions:[CCActionMoveTo actionWithDuration:0.2 position:chosenEnemy.mySprite.position],[CCActionCallFunc actionWithTarget:self selector:@selector(damageEnemy)],[CCActionRemove action],nil]];
+    [bullet runAction:[CCActionSequence actions:[CCActionMoveTo actionWithDuration:0.13 position:chosenEnemy.mySprite.position],[CCActionCallFunc actionWithTarget:self selector:@selector(damageEnemy)],[CCActionRemove action],nil]];
     
 }
 //-(void)removeBullet:(CCSprite *)bullet {
@@ -114,8 +114,8 @@ const float TOWER_HEALTH_BAR_HEIGHT = 4.0f;
 }
 
 -(void)upgradeTower {
-    atkPower += 5;
-    atkSpeed *= 0.9f;
+    atkPower += 1+(atkPower*.3f);
+    //atkSpeed += 0.1f;
     
     upgrade += 1;
     
@@ -128,9 +128,9 @@ const float TOWER_HEALTH_BAR_HEIGHT = 4.0f;
     
     CGPoint verts[4];
     verts[0] = ccp(0.0f, 0.0f);
-    verts[1] = ccp(0.0f, TOWER_HEALTH_BAR_HEIGHT - 1.0f);
-    verts[2] = ccp(TOWER_HEALTH_BAR_WIDTH - 1.0f, TOWER_HEALTH_BAR_HEIGHT - 1.0f);
-    verts[3] = ccp(TOWER_HEALTH_BAR_WIDTH - 1.0f, 0.0f);
+    verts[1] = ccp(0.0f, MAIN_TOWER_HEALTH_BAR_HEIGHT - 1.0f);
+    verts[2] = ccp(MAIN_TOWER_HEALTH_BAR_WIDTH - 1.0f, MAIN_TOWER_HEALTH_BAR_HEIGHT - 1.0f);
+    verts[3] = ccp(MAIN_TOWER_HEALTH_BAR_WIDTH - 1.0f, 0.0f);
     
     //ccColor4F clearColor = ccc4f(0.0f, 0.0f, 0.0f, 0.0f);
     //ccColor4F borderColor = ccc4f(35.0f/255.0f, 28.0f/255.0f, 40.0f/255.0f, 1.0f);
@@ -146,7 +146,7 @@ const float TOWER_HEALTH_BAR_HEIGHT = 4.0f;
     verts[0].y += 0.5f;
     verts[1].x += 0.5f;
     verts[1].y -= 0.5f;
-    verts[2].x = (TOWER_HEALTH_BAR_WIDTH - 2.0f)*currentHP/maxHP + 0.5f;
+    verts[2].x = (MAIN_TOWER_HEALTH_BAR_WIDTH - 2.0f)*currentHP/maxHP + 0.5f;
     verts[2].y -= 0.5f;
     verts[3].x = verts[2].x;
     verts[3].y += 0.5f;
@@ -161,17 +161,17 @@ const float TOWER_HEALTH_BAR_HEIGHT = 4.0f;
     
     CGPoint myPosition = mySprite.position;
     
-//    ccDrawSolidRect(ccp(myPosition.x+HEALTH_BAR_ORIGIN,
-//                        myPosition.y+16),
-//                    ccp(myPosition.x+HEALTH_BAR_ORIGIN+HEALTH_BAR_WIDTH,
-//                        myPosition.y+14),
-//                    ccc4f(1.0, 0, 0, 1.0));
-//    
-//    ccDrawSolidRect(ccp(myPosition.x+HEALTH_BAR_ORIGIN,
-//                        myPosition.y+16),
-//                    ccp(myPosition.x+HEALTH_BAR_ORIGIN + (float)(currentHP * HEALTH_BAR_WIDTH)/maxHP,
-//                        myPosition.y+14),
-//                    ccc4f(0, 1.0, 0, 1.0));
+    //    ccDrawSolidRect(ccp(myPosition.x+HEALTH_BAR_ORIGIN,
+    //                        myPosition.y+16),
+    //                    ccp(myPosition.x+HEALTH_BAR_ORIGIN+HEALTH_BAR_WIDTH,
+    //                        myPosition.y+14),
+    //                    ccc4f(1.0, 0, 0, 1.0));
+    //
+    //    ccDrawSolidRect(ccp(myPosition.x+HEALTH_BAR_ORIGIN,
+    //                        myPosition.y+16),
+    //                    ccp(myPosition.x+HEALTH_BAR_ORIGIN + (float)(currentHP * HEALTH_BAR_WIDTH)/maxHP,
+    //                        myPosition.y+14),
+    //                    ccc4f(0, 1.0, 0, 1.0));
     
     [super draw];
 }

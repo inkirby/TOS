@@ -10,6 +10,7 @@
 #import "HelloWorldScene.h"
 #import "IntroScene.h"
 #import "Tower.h"
+#import "MainTower.h"
 #import "Waypoint.h"
 #import "Enemy.h"
 
@@ -81,6 +82,14 @@
     [self addChild:ui_gold_lbl z:10];
     [ui_gold_lbl setPosition:ccp(135,winSize.height-12)];
     [ui_gold_lbl setAnchorPoint:ccp(0,0.5)];
+    
+    
+    CCSprite *mtowerBase = [CCSprite spriteWithImageNamed:@"open_spot.png"];
+    [self addChild:mtowerBase];
+    [mtowerBase setPosition:ccp(430, 50)];
+    
+    MainTower *mtower = [MainTower nodeWithTheGame:self location:mtowerBase.position];
+    mtowerBase.userObject = (__bridge id)((__bridge void *)(mtower));
     
     // done
 	return self;
@@ -277,6 +286,7 @@
 -(void) touchBegan:(UITouch *)touch withEvent:(UIEvent *)event {
     CGPoint location = [touch locationInView:[touch view]];
     location = [[CCDirector sharedDirector] convertToGL:location];
+    
     for(CCSprite *towerBase in towerBases) {
         if(CGRectContainsPoint([towerBase boundingBox], location) && [self canBuyTower]) {
             NSLog(@"touch tower base");
