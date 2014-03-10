@@ -251,6 +251,15 @@
     attack = tattack;
     hp = thp;
     speed = tspeed;
+    
+    [mtower setUpgradeAtk:attack];
+    [mtower setUpgradeSpd:speed];
+    
+    for(int i=0;i<hp;i++) {
+        playerHP += 1;
+    }
+    [ui_hp_lbl setString:[NSString stringWithFormat:@"HP: %d",playerHP]];
+    
 }
 
 -(void)updateUserData {

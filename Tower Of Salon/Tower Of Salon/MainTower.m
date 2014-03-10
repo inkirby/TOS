@@ -33,7 +33,6 @@ const float MAIN_TOWER_HEALTH_BAR_HEIGHT = 4.0f;
         [self.locationManager startUpdatingHeading];
         
         theGame = _game;
-        maxHP = 1000;
         atkRange = 460;
         upgradeAtk = 0;
         upgradeSpeed = 0;
@@ -42,9 +41,6 @@ const float MAIN_TOWER_HEALTH_BAR_HEIGHT = 4.0f;
         
         // receivable vars
         atkType = 2;
-        AtkUpgraded = 0;
-        SpdUpgraded = 0;
-        HPUpgraded = 0;
         
         switch (atkType) {
             case 1: // arrow
@@ -63,16 +59,6 @@ const float MAIN_TOWER_HEALTH_BAR_HEIGHT = 4.0f;
                 mySprite = [CCSprite spriteWithImageNamed:@"maintowerbullet.png"];
                 break;
         }
-        
-        while (upgradeAtk<AtkUpgraded) [self upgradeTowerAtk];
-        while (upgradeSpeed<SpdUpgraded) [self upgradeTowerSpeed];
-        while (upgradeHP<HPUpgraded) [self upgradeTowerHP];
-        
-        currentHP = maxHP;
-        
-        healthBar = [[CCDrawNode alloc] init];
-        healthBar.contentSize = CGSizeMake(MAIN_TOWER_HEALTH_BAR_WIDTH, MAIN_TOWER_HEALTH_BAR_HEIGHT);
-        [self addChild:healthBar];
         
         [self addChild:mySprite];
         [mySprite setPosition:location];
@@ -163,20 +149,6 @@ const float MAIN_TOWER_HEALTH_BAR_HEIGHT = 4.0f;
     [self unschedule:@selector(shootWeapon)];
 }
 
--(void)upgradeTowerAtk {
-    atkPower *= 1.25;
-    upgradeAtk++;
-}
-
--(void)upgradeTowerHP {
-    maxHP *= 1.5;
-    upgradeHP++;
-}
-
--(void)upgradeTowerSpeed {
-    atkSpeed *= 0.9;
-    upgradeSpeed++;
-}
 
 -(void)disableAttack {
     canAttack = false;
@@ -186,13 +158,14 @@ const float MAIN_TOWER_HEALTH_BAR_HEIGHT = 4.0f;
 }
 
 -(void)setUpgradeAtk:(int)atk {
-    AtkUpgraded = atk;
+    for(int i=0;i<atk;i++) {
+        atkPower *= 1.25;
+    }
 }
 -(void)setUpgradeSpd:(int)spd {
-    SpdUpgraded = spd;
-}
--(void)setUpgradeHP:(int)hp {
-    HPUpgraded = hp;
+    for(int i=0;i<spd;i++) {
+        atkSpeed *= 0.9;
+    }
 }
 
 @end
