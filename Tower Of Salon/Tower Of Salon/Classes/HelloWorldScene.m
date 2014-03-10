@@ -23,6 +23,7 @@
 @implementation HelloWorldScene
 {
     CCSprite *_sprite;
+    MainTower *mtower;
 }
 @synthesize towers;
 @synthesize waypoints;
@@ -66,7 +67,6 @@
     enemies = [[NSMutableArray alloc] init];
     towers = [[NSMutableArray alloc] init];
     
-    [self loadWave:10];
     
     ui_wave_lbl = [CCLabelBMFont labelWithString:[NSString stringWithFormat:@"WAVE: %d",wave] fntFile:@"font_red_14.fnt"];
     [self addChild:ui_wave_lbl z:10];
@@ -86,10 +86,12 @@
     
     CCSprite *mtowerBase = [CCSprite spriteWithImageNamed:@"open_spot.png"];
     [self addChild:mtowerBase];
-    [mtowerBase setPosition:ccp(430, 50)];
+    [mtowerBase setPosition:ccp(424, 50)];
     
-    MainTower *mtower = [MainTower nodeWithTheGame:self location:mtowerBase.position];
+    mtower = [MainTower nodeWithTheGame:self location:mtowerBase.position];
     mtowerBase.userObject = (__bridge id)((__bridge void *)(mtower));
+    
+    [self loadWave:10];
     
     // done
 	return self;
@@ -168,7 +170,7 @@
 //    }
     
     float time = 3;
-    bool isBossOut = false;
+    isBossOut = false;
     for(int i=0;i<NumOfEnemy+arc4random()%(wave+1);i++) {
         int temp = arc4random()%100;
         if(temp > 95) {
@@ -204,6 +206,9 @@
     
     wave++;
     [ui_wave_lbl setString:[NSString stringWithFormat:@"WAVE: %d",wave]];
+    
+    if (isBossOut) [mtower enableAttack];
+    else [mtower disableAttack];
     
     return YES;
 }

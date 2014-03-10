@@ -26,34 +26,45 @@ const float MAIN_TOWER_HEALTH_BAR_HEIGHT = 4.0f;
         theGame = _game;
         maxHP = 1000;
         atkRange = 460;
+        upgradeAtk = 0;
+        upgradeSpeed = 0;
+        upgradeHP = 0;
+        canAttack = false;
         
         // receivable vars
-        atkType = 1;
-        upgrade = 0;
+        atkType = 0;
+        int AtkUpgraded = 0;
+        int SpdUpgraded = 0;
+        int HPUpgraded = 0;
         
         switch (atkType) {
             case 1: // arrow
                 atkPower = 300;
                 atkSpeed = 2;
+                mySprite = [CCSprite spriteWithImageNamed:@"maintowerarrow.png"];
                 break;
             case 2: // laser
                 atkPower = 3;
                 atkSpeed = .05;
+                mySprite = [CCSprite spriteWithImageNamed:@"maintowerlaser.png"];
                 break;
             default: // bullet
                 atkPower = 120;
                 atkSpeed = 1;
+                mySprite = [CCSprite spriteWithImageNamed:@"maintowerbullet.png"];
                 break;
         }
         
-        currentHP = maxHP;
+        while (upgradeAtk<AtkUpgraded) [self upgradeTowerAtk];
+        while (upgradeSpeed<SpdUpgraded) [self upgradeTowerSpeed];
+        while (upgradeHP<HPUpgraded) [self upgradeTowerHP];
         
+        currentHP = maxHP;
         
         healthBar = [[CCDrawNode alloc] init];
         healthBar.contentSize = CGSizeMake(MAIN_TOWER_HEALTH_BAR_WIDTH, MAIN_TOWER_HEALTH_BAR_HEIGHT);
         [self addChild:healthBar];
         
-        mySprite = [CCSprite spriteWithImageNamed:@"tower.png"];
         [self addChild:mySprite];
         [mySprite setPosition:location];
         [theGame addChild:self];
@@ -91,6 +102,7 @@ const float MAIN_TOWER_HEALTH_BAR_HEIGHT = 4.0f;
 }
 -(void)chosenEnemyForAttack:(Enemy *)enemy {
     chosenEnemy = nil;
+    if (!canAttack) return;
     chosenEnemy = enemy;
     [self attackEnemy];
     [enemy getAttacked:self];
@@ -102,7 +114,7 @@ const float MAIN_TOWER_HEALTH_BAR_HEIGHT = 4.0f;
         bullet.rotation = CC_RADIANS_TO_DEGREES(atan2(normalized.y, -normalized.x))-90;
         [theGame addChild:bullet];
         [bullet setPosition:mySprite.position];
-        [bullet runAction:[CCActionSequence actions:[CCActionMoveTo actionWithDuration:0.25 position:chosenEnemy.mySprite.position],[CCActionCallFunc actionWithTarget:self selector:@selector(damageEnemy)],[CCActionRemove action],nil]];
+        [bullet runAction:[CCActionSequence actions:[CCActionMoveTo actionWithDuration:0.4 position:chosenEnemy.mySprite.position],[CCActionCallFunc actionWithTarget:self selector:@selector(damageEnemy)],[CCActionRemove action],nil]];
     }else if (atkType == 2) {   //laser
         CCSprite *bullet = [CCSprite spriteWithImageNamed:@"laser.png"];
         CGPoint normalized = ccpNormalize(ccp(chosenEnemy.mySprite.position.x-mySprite.position.x,chosenEnemy.mySprite.position.y-mySprite.position.y));
@@ -114,7 +126,7 @@ const float MAIN_TOWER_HEALTH_BAR_HEIGHT = 4.0f;
         CCSprite *bullet = [CCSprite spriteWithImageNamed:@"bullet.png"];
         [theGame addChild:bullet];
         [bullet setPosition:mySprite.position];
-        [bullet runAction:[CCActionSequence actions:[CCActionMoveTo actionWithDuration:0.2 position:chosenEnemy.mySprite.position],[CCActionCallFunc actionWithTarget:self selector:@selector(damageEnemy)],[CCActionRemove action],nil]];
+        [bullet runAction:[CCActionSequence actions:[CCActionMoveTo actionWithDuration:0.25 position:chosenEnemy.mySprite.position],[CCActionCallFunc actionWithTarget:self selector:@selector(damageEnemy)],[CCActionRemove action],nil]];
     }
 }
 //-(void)removeBullet:(CCSprite *)bullet {
@@ -137,16 +149,26 @@ const float MAIN_TOWER_HEALTH_BAR_HEIGHT = 4.0f;
     [self unschedule:@selector(shootWeapon)];
 }
 
--(BOOL)isUpgradable {
-    if(upgrade > 9) {
-        return NO;
-    }
-    return YES;
+-(void)upgradeTowerAtk {
+    atkPower *= 1.25;
+    upgradeAtk++;
 }
 
--(void)upgradeTower {
-    atkPower += 1+(atkPower*.3f);
-    maxHP += 100;
+-(void)upgradeTowerHP {
+    maxHP *= 1.5;
+    upgradeHP++;
+}
+
+-(void)upgradeTowerSpeed {
+    atkSpeed *= 0.9;
+    upgradeSpeed++;
+}
+
+-(void)disableAttack {
+    canAttack = false;
+}
+-(void)enableAttack {
+    canAttack = true;
 }
 
 -(void)drawHealthBar:(CCDrawNode *)node hp:(int)hp {

@@ -116,6 +116,7 @@ const float TOWER_HEALTH_BAR_HEIGHT = 4.0f;
 -(void)upgradeTower {
     atkPower += 5;
     atkSpeed *= 0.9f;
+    atkRange *= 1.05;
     
     upgrade += 1;
     

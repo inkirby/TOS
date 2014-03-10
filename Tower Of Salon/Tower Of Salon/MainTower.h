@@ -17,16 +17,19 @@
 @class HelloWorldScene, Enemy;
 
 @interface MainTower : CCNode {
-    int atkRange;
     int atkPower;
     float atkSpeed;
     int maxHP;
-    int currentHP;
-    int upgrade;
-    BOOL isAttacking;
     
     int atkType; // 0 - bullet, 1 - arrow, 2 - laser
+    int upgradeAtk;
+    int upgradeSpeed;
+    int upgradeHP;
     
+    int atkRange;
+    int currentHP;
+    BOOL isAttacking;
+    BOOL canAttack;
     Enemy *chosenEnemy;
     CCDrawNode *healthBar;
 }
@@ -37,7 +40,10 @@
 +(id)nodeWithTheGame:(HelloWorldScene *)_game location:(CGPoint) location;
 -(id)initWithTheGame:(HelloWorldScene *)_game location:(CGPoint) location;
 -(void)targetKilled;
--(void)upgradeTower;
--(BOOL)isUpgradable;
+-(void)disableAttack;
+-(void)enableAttack;
+-(void)upgradeTowerAtk;
+-(void)upgradeTowerSpeed;
+-(void)upgradeTowerHP;
 
 @end
