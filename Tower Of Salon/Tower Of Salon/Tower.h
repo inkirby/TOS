@@ -9,6 +9,7 @@
 #import "CCNode.h"
 #import "cocos2d.h"
 #import "HelloWorldScene.h"
+#import <CoreMotion/CoreMotion.h>
 
 #define TOWER_COST 300
 
@@ -26,6 +27,7 @@
     CCDrawNode *healthBar;
 }
 
+@property (nonatomic,strong) CMMotionManager *motionManager;
 @property (nonatomic,weak) HelloWorldScene *theGame;
 @property (nonatomic,strong) CCSprite *mySprite;
 

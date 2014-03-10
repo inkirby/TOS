@@ -16,6 +16,7 @@ const float MAIN_TOWER_HEALTH_BAR_HEIGHT = 4.0f;
 
 @synthesize mySprite;
 @synthesize theGame;
+@synthesize laserGuide;
 
 +(id) nodeWithTheGame:(HelloWorldScene *)_game location:(CGPoint)location {
     return [[self alloc] initWithTheGame:_game location:location];
@@ -23,10 +24,6 @@ const float MAIN_TOWER_HEALTH_BAR_HEIGHT = 4.0f;
 
 -(id) initWithTheGame:(HelloWorldScene *)_game location:(CGPoint)location {
     if( (self = [super init])) {
-        
-        self.motionManager = [[CMMotionManager alloc] init];
-        self.motionManager.accelerometerUpdateInterval = 1;
-        self.motionManager.gyroUpdateInterval = 1;
         
         self.locationManager = [[CLLocationManager alloc] init];
         self.locationManager.delegate = self;
@@ -64,6 +61,10 @@ const float MAIN_TOWER_HEALTH_BAR_HEIGHT = 4.0f;
         [mySprite setPosition:location];
         [theGame addChild:self];
         
+        laserGuide = [CCSprite spriteWithImageNamed:@"laserguide.png"];
+        [laserGuide setPosition:location];
+        [theGame addChild:laserGuide];
+        
         //[self scheduleUpdate];
         NSLog(@"init tower");
         
@@ -77,7 +78,7 @@ const float MAIN_TOWER_HEALTH_BAR_HEIGHT = 4.0f;
     
     
     // this rotate turret to enemy
-    /*
+    
     if(chosenEnemy) {
         CGPoint normalized = ccpNormalize(ccp(chosenEnemy.mySprite.position.x-mySprite.position.x,chosenEnemy.mySprite.position.y-mySprite.position.y));
         mySprite.rotation = CC_RADIANS_TO_DEGREES(atan2(normalized.y, -normalized.x))+90;
@@ -93,12 +94,8 @@ const float MAIN_TOWER_HEALTH_BAR_HEIGHT = 4.0f;
             }
         }
     }
-    */
-    
     // this rotate turret to compass direction
-    mySprite.rotation = [self.locationManager heading].magneticHeading;
-    [self directShoot:[self.locationManager heading].magneticHeading];
-    
+    laserGuide.rotation = [self.locationManager heading].magneticHeading;
     
 }
 -(void)attackEnemy {
@@ -110,10 +107,6 @@ const float MAIN_TOWER_HEALTH_BAR_HEIGHT = 4.0f;
     chosenEnemy = enemy;
     [self attackEnemy];
     [enemy getAttacked:self];
-}
-
--(void)directShoot:(float)angle {
-    
 }
 
 -(void)shootWeapon {
@@ -138,7 +131,14 @@ const float MAIN_TOWER_HEALTH_BAR_HEIGHT = 4.0f;
 }
 
 -(void)damageEnemy {
-    [chosenEnemy getDamaged:atkPower];
+    
+    CGPoint normalized = ccpNormalize(ccp(chosenEnemy.mySprite.position.x-mySprite.position.x,chosenEnemy.mySprite.position.y-mySprite.position.y));
+    float rotation = CC_RADIANS_TO_DEGREES(atan2(normalized.y, -normalized.x))-90;
+    if (rotation-laserGuide.rotation <20 || laserGuide.rotation-rotation < 20) {
+        [chosenEnemy getDamaged:(atkPower*1.2)];
+    }else{
+        [chosenEnemy getDamaged:atkPower];
+    }
 }
 
 -(void)targetKilled {

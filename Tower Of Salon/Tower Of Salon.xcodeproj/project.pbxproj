@@ -260,6 +260,8 @@
 		904FAB6818CE536900C323E3 /* hydra.png in Resources */ = {isa = PBXBuildFile; fileRef = 904FAB6218CE536900C323E3 /* hydra.png */; };
 		904FAB6918CE536900C323E3 /* skeleton-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 904FAB6318CE536900C323E3 /* skeleton-hd.png */; };
 		904FAB6A18CE536900C323E3 /* skeleton.png in Resources */ = {isa = PBXBuildFile; fileRef = 904FAB6418CE536900C323E3 /* skeleton.png */; };
+		904FAB6D18CE6BFA00C323E3 /* laserguide-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 904FAB6B18CE6BFA00C323E3 /* laserguide-hd.png */; };
+		904FAB6E18CE6BFA00C323E3 /* laserguide.png in Resources */ = {isa = PBXBuildFile; fileRef = 904FAB6C18CE6BFA00C323E3 /* laserguide.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -753,6 +755,8 @@
 		904FAB6218CE536900C323E3 /* hydra.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hydra.png; sourceTree = "<group>"; };
 		904FAB6318CE536900C323E3 /* skeleton-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "skeleton-hd.png"; sourceTree = "<group>"; };
 		904FAB6418CE536900C323E3 /* skeleton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = skeleton.png; sourceTree = "<group>"; };
+		904FAB6B18CE6BFA00C323E3 /* laserguide-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "laserguide-hd.png"; sourceTree = "<group>"; };
+		904FAB6C18CE6BFA00C323E3 /* laserguide.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = laserguide.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -846,6 +850,8 @@
 				901B96A718CE311E00ED14CD /* maintowerbullet.png */,
 				901B96A318CE2E9200ED14CD /* maintowerlaser.png */,
 				904D7A2118CDA9880042105E /* icon_HP.png */,
+				904FAB6B18CE6BFA00C323E3 /* laserguide-hd.png */,
+				904FAB6C18CE6BFA00C323E3 /* laserguide.png */,
 				901B969E18CE2BFE00ED14CD /* maintowerarrow-hd.png */,
 				901B969F18CE2BFE00ED14CD /* maintowerarrow.png */,
 				904D7A2218CDA9880042105E /* laser_shoot.wav */,
@@ -1792,6 +1798,7 @@
 				0DB0683718C71461003217A8 /* Icon-72@2x.png in Resources */,
 				904D7A2F18CDA9880042105E /* enemy_destroy_2.wav in Resources */,
 				0DB0682818C71461003217A8 /* Default.png in Resources */,
+				904FAB6D18CE6BFA00C323E3 /* laserguide-hd.png in Resources */,
 				904D7A3318CDA9880042105E /* font_red_14.png in Resources */,
 				0DB0683118C71461003217A8 /* Icon.png in Resources */,
 				904D7A3A18CDA9880042105E /* icon_HP.png in Resources */,
@@ -1818,6 +1825,7 @@
 				901B969D18CE1D8300ED14CD /* arrow.png in Resources */,
 				904D7A3118CDA9880042105E /* enemy-hd.png in Resources */,
 				904FAB6818CE536900C323E3 /* hydra.png in Resources */,
+				904FAB6E18CE6BFA00C323E3 /* laserguide.png in Resources */,
 				0DB0682C18C71461003217A8 /* Default-568h@2x.png in Resources */,
 				901B96A918CE311E00ED14CD /* maintowerbullet.png in Resources */,
 				904D7A2D18CDA9880042105E /* bullet-hd.png in Resources */,

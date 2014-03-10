@@ -23,6 +23,16 @@ const float TOWER_HEALTH_BAR_HEIGHT = 4.0f;
 
 -(id) initWithTheGame:(HelloWorldScene *)_game location:(CGPoint)location {
     if( (self = [super init])) {
+        
+        self.motionManager = [[CMMotionManager alloc] init];
+        self.motionManager.accelerometerUpdateInterval = .7;
+        [self.motionManager startAccelerometerUpdatesToQueue:[NSOperationQueue currentQueue] withHandler: ^(CMAccelerometerData *accelerometerData, NSError *error) {
+            [self gainHP:accelerometerData.acceleration];
+            if (error) {
+                NSLog(@"%@", error);
+            }
+        }];
+        
         theGame = _game;
         atkRange = 70;
         atkPower = 10;
@@ -70,6 +80,17 @@ const float TOWER_HEALTH_BAR_HEIGHT = 4.0f;
         }
     }
 }
+
+-(void)gainHP:(CMAcceleration)acc {
+    float accelerationThreshold = 2;
+    if (acc.x+acc.y+acc.z > accelerationThreshold) {
+        if (currentHP < maxHP) {
+            currentHP += 10;
+            if (currentHP > maxHP) currentHP = maxHP;
+        }
+    }
+}
+
 -(void)attackEnemy {
     [self schedule:@selector(shootWeapon) interval:atkSpeed];
 }
