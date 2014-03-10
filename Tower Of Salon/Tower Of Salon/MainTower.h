@@ -28,6 +28,10 @@
     int upgradeSpeed;
     int upgradeHP;
     
+    int AtkUpgraded;
+    int SpdUpgraded;
+    int HPUpgraded;
+    
     int atkRange;
     int currentHP;
     BOOL isAttacking;
@@ -47,8 +51,8 @@
 -(void)targetKilled;
 -(void)disableAttack;
 -(void)enableAttack;
--(void)upgradeTowerAtk;
--(void)upgradeTowerSpeed;
--(void)upgradeTowerHP;
+-(void)setUpgradeAtk:(int)atk;
+-(void)setUpgradeSpd:(int)spd;
+-(void)setUpgradeHP:(int)hp;
 
 @end
