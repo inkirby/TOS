@@ -26,6 +26,11 @@
     NSInteger attack;
     NSInteger hp;
     NSInteger speed;
+    
+    CCLabelTTF *diamondL;
+    CCLabelTTF *attckL;
+    CCLabelTTF *hpL;
+    CCLabelTTF *speedL;
 }
 
 // -----------------------------------------------------------------------

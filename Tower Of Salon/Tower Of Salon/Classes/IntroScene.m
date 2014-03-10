@@ -38,6 +38,8 @@
     CCNodeColor *background = [CCNodeColor nodeWithColor:[CCColor colorWithRed:0.2f green:0.2f blue:0.2f alpha:1.0f]];
     [self addChild:background];
     
+    [self getUserData];
+    
 //    // Hello world
 //    CCLabelTTF *label = [CCLabelTTF labelWithString:@"Hello World" fontName:@"Chalkduster" fontSize:36.0f];
 //    label.positionType = CCPositionTypeNormalized;
@@ -50,11 +52,67 @@
 //    helloWorldButton.positionType = CCPositionTypeNormalized;
 //    helloWorldButton.position = ccp(0.5f, 0.35f);
 //    [self addChild:helloWorldButton];
-
-    [self getUserData];
     
     // done
 	return self;
+}
+-(void)setLabel {
+    NSString *diamondS = [NSString stringWithFormat:@"Diamond = %d",diamond];
+
+    diamondL = [CCLabelTTF labelWithString:diamondS fontName:@"Verdana-Bold" fontSize:18.0f];
+    diamondL.positionType = CCPositionTypeNormalized;
+    diamondL.color = [CCColor blueColor];
+    diamondL.position = ccp(0.5f,0.7f);
+    [self addChild:diamondL];
+    
+    NSString *attackS = [NSString stringWithFormat:@"Attack = %d",attack];
+    
+    attckL = [CCLabelTTF labelWithString:attackS fontName:@"Verdana-Bold" fontSize:18.0f];
+    attckL.positionType = CCPositionTypeNormalized;
+    attckL.color = [CCColor whiteColor];
+    attckL.position = ccp(0.5f,0.6f);
+    [self addChild:attckL];
+    
+    NSString *hpS = [NSString stringWithFormat:@"HP = %d",hp];
+    
+    hpL = [CCLabelTTF labelWithString:hpS fontName:@"Verdana-Bold" fontSize:18.0f];
+    hpL.positionType = CCPositionTypeNormalized;
+    hpL.color = [CCColor whiteColor];
+    hpL.position = ccp(0.5f,0.5f);
+    [self addChild:hpL];
+    
+    NSString *speedS = [NSString stringWithFormat:@"Speed = %d",speed];
+    
+    speedL = [CCLabelTTF labelWithString:speedS fontName:@"Verdana-Bold" fontSize:18.0f];
+    speedL.positionType = CCPositionTypeNormalized;
+    speedL.color = [CCColor whiteColor];
+    speedL.position = ccp(0.5f,0.4f);
+    [self addChild:speedL];
+}
+-(void)setButton {
+    CCButton *attackP = [CCButton buttonWithTitle:@"[+]" fontName:@"Verdana-Bold" fontSize:18.0f];
+    attackP.positionType = CCPositionTypeNormalized;
+    attackP.color = [CCColor whiteColor];
+    attackP.position = ccp(0.2f,0.6f);
+    [self addChild:attackP];
+    
+    CCButton *hpP = [CCButton buttonWithTitle:@"[+]" fontName:@"Verdana-Bold" fontSize:18.0f];
+    hpP.positionType = CCPositionTypeNormalized;
+    hpP.color = [CCColor whiteColor];
+    hpP.position = ccp(0.2f,0.5f);
+    [self addChild:hpP];
+    
+    CCButton *speedP = [CCButton buttonWithTitle:@"[+]" fontName:@"Verdana-Bold" fontSize:18.0f];
+    speedP.positionType = CCPositionTypeNormalized;
+    speedP.color = [CCColor whiteColor];
+    speedP.position = ccp(0.2f,0.4f);
+    [self addChild:speedP];
+    
+    CCButton *startGame = [CCButton buttonWithTitle:@"[Start Game]" fontName:@"Verdana-Bold" fontSize:18.0f];
+    startGame.positionType = CCPositionTypeNormalized;
+    startGame.color = [CCColor redColor];
+    startGame.position = ccp(0.5f,0.3f);
+    [self addChild:startGame];
 }
 -(void)getUserData {
     
@@ -102,10 +160,13 @@
             speed = [(NSString *)[dic objectForKey:@"speed"] integerValue];
         
             NSLog(@"%d %d %d %d",diamond,attack,hp,speed);
+            [self setLabel];
+            [self setButton];
             
-            HelloWorldScene *hScene = [[HelloWorldScene alloc] init];
-            [hScene setBaseValue:diamond :attack :hp :speed];
-            [[CCDirector sharedDirector] replaceScene:hScene];
+            //HelloWorldScene *hScene = [[HelloWorldScene alloc] init];
+            //[hScene setBaseValue:diamond :attack :hp :speed];
+            
+            //[[CCDirector sharedDirector] replaceScene:hScene];
             
         } else {
             NSLog(@"Error");
