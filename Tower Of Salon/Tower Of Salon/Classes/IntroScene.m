@@ -40,25 +40,25 @@
     
     [self getUserData];
     
-//    // Hello world
-//    CCLabelTTF *label = [CCLabelTTF labelWithString:@"Hello World" fontName:@"Chalkduster" fontSize:36.0f];
-//    label.positionType = CCPositionTypeNormalized;
-//    label.color = [CCColor redColor];
-//    label.position = ccp(0.5f, 0.5f); // Middle of screen
-//    [self addChild:label];
-//    
-//    // Helloworld scene button
-//    CCButton *helloWorldButton = [CCButton buttonWithTitle:@"[ Start ]" fontName:@"Verdana-Bold" fontSize:18.0f];
-//    helloWorldButton.positionType = CCPositionTypeNormalized;
-//    helloWorldButton.position = ccp(0.5f, 0.35f);
-//    [self addChild:helloWorldButton];
+    //    // Hello world
+    //    CCLabelTTF *label = [CCLabelTTF labelWithString:@"Hello World" fontName:@"Chalkduster" fontSize:36.0f];
+    //    label.positionType = CCPositionTypeNormalized;
+    //    label.color = [CCColor redColor];
+    //    label.position = ccp(0.5f, 0.5f); // Middle of screen
+    //    [self addChild:label];
+    //
+    //    // Helloworld scene button
+    //    CCButton *helloWorldButton = [CCButton buttonWithTitle:@"[ Start ]" fontName:@"Verdana-Bold" fontSize:18.0f];
+    //    helloWorldButton.positionType = CCPositionTypeNormalized;
+    //    helloWorldButton.position = ccp(0.5f, 0.35f);
+    //    [self addChild:helloWorldButton];
     
     // done
 	return self;
 }
 -(void)setLabel {
     NSString *diamondS = [NSString stringWithFormat:@"Diamond = %d",diamond];
-
+    
     [diamondL setString:@""];
     diamondL = [CCLabelTTF labelWithString:diamondS fontName:@"Verdana-Bold" fontSize:18.0f];
     diamondL.positionType = CCPositionTypeNormalized;
@@ -188,12 +188,12 @@
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:self->receivedData options:NSJSONReadingMutableLeaves error:nil];
         
         if([(NSString *)[dic objectForKey:@"success"] integerValue] == 1) {
-        
+            
             diamond = [(NSString *)[dic objectForKey:@"diamond"] integerValue];
             attack = [(NSString *)[dic objectForKey:@"attack"] integerValue];
             hp = [(NSString *)[dic objectForKey:@"hp"] integerValue];
             speed = [(NSString *)[dic objectForKey:@"speed"] integerValue];
-        
+            
             NSLog(@"%d %d %d %d",diamond,attack,hp,speed);
             [self setLabel];
             [self setButton];
