@@ -177,6 +177,7 @@ const float TOWER_HEALTH_BAR_HEIGHT = 4.0f;
     [super draw];
 }
 
+// damage receive from boss
 -(void)receiveDamage:(int)damage {
     currentHP-=20;
     

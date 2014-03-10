@@ -96,7 +96,6 @@ const float MAIN_TOWER_HEALTH_BAR_HEIGHT = 4.0f;
     */
     
     // this rotate turret to compass direction
-    
     mySprite.rotation = [self.locationManager heading].magneticHeading;
     
     

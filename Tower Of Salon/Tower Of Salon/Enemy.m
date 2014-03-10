@@ -28,7 +28,7 @@ const float ENEMY_HEALTH_BAR_HEIGHT = 4.0f;
         attackedBy = [[NSMutableArray alloc] initWithCapacity:5];
         
         theGame = _game;
-        
+        //added assets
         if([enemy  isEqualToString: @"skeleton"]) {
             mySprite = [CCSprite spriteWithImageNamed:@"skeleton.png"];
             [self addChild:mySprite];
