@@ -24,6 +24,9 @@
     int currentHP;
     int upgrade;
     BOOL isAttacking;
+    
+    int atkType; // 0 - bullet, 1 - arrow, 2 - laser
+    
     Enemy *chosenEnemy;
     CCDrawNode *healthBar;
 }

@@ -24,14 +24,30 @@ const float MAIN_TOWER_HEALTH_BAR_HEIGHT = 4.0f;
 -(id) initWithTheGame:(HelloWorldScene *)_game location:(CGPoint)location {
     if( (self = [super init])) {
         theGame = _game;
-        atkRange = 1000;
-        atkPower = 1;
-        atkSpeed = .1;
+        maxHP = 1000;
+        atkRange = 460;
         
-        maxHP = 500;
+        // receivable vars
+        atkType = 1;
+        upgrade = 0;
+        
+        switch (atkType) {
+            case 1: // arrow
+                atkPower = 300;
+                atkSpeed = 2;
+                break;
+            case 2: // laser
+                atkPower = 3;
+                atkSpeed = .05;
+                break;
+            default: // bullet
+                atkPower = 120;
+                atkSpeed = 1;
+                break;
+        }
+        
         currentHP = maxHP;
         
-        upgrade = 0;
         
         healthBar = [[CCDrawNode alloc] init];
         healthBar.contentSize = CGSizeMake(MAIN_TOWER_HEALTH_BAR_WIDTH, MAIN_TOWER_HEALTH_BAR_HEIGHT);
@@ -80,11 +96,26 @@ const float MAIN_TOWER_HEALTH_BAR_HEIGHT = 4.0f;
     [enemy getAttacked:self];
 }
 -(void)shootWeapon {
-    CCSprite *bullet = [CCSprite spriteWithImageNamed:@"bullet.png"];
-    [theGame addChild:bullet];
-    [bullet setPosition:mySprite.position];
-    [bullet runAction:[CCActionSequence actions:[CCActionMoveTo actionWithDuration:0.13 position:chosenEnemy.mySprite.position],[CCActionCallFunc actionWithTarget:self selector:@selector(damageEnemy)],[CCActionRemove action],nil]];
-    
+    if (atkType == 1) { //arrow
+        CCSprite *bullet = [CCSprite spriteWithImageNamed:@"arrow.png"];
+        CGPoint normalized = ccpNormalize(ccp(chosenEnemy.mySprite.position.x-mySprite.position.x,chosenEnemy.mySprite.position.y-mySprite.position.y));
+        bullet.rotation = CC_RADIANS_TO_DEGREES(atan2(normalized.y, -normalized.x))-90;
+        [theGame addChild:bullet];
+        [bullet setPosition:mySprite.position];
+        [bullet runAction:[CCActionSequence actions:[CCActionMoveTo actionWithDuration:0.25 position:chosenEnemy.mySprite.position],[CCActionCallFunc actionWithTarget:self selector:@selector(damageEnemy)],[CCActionRemove action],nil]];
+    }else if (atkType == 2) {   //laser
+        CCSprite *bullet = [CCSprite spriteWithImageNamed:@"laser.png"];
+        CGPoint normalized = ccpNormalize(ccp(chosenEnemy.mySprite.position.x-mySprite.position.x,chosenEnemy.mySprite.position.y-mySprite.position.y));
+        bullet.rotation = CC_RADIANS_TO_DEGREES(atan2(normalized.y, -normalized.x))-90;
+        [theGame addChild:bullet];
+        [bullet setPosition:mySprite.position];
+        [bullet runAction:[CCActionSequence actions:[CCActionMoveTo actionWithDuration:0.12 position:chosenEnemy.mySprite.position],[CCActionCallFunc actionWithTarget:self selector:@selector(damageEnemy)],[CCActionRemove action],nil]];
+    }else{  //bullet
+        CCSprite *bullet = [CCSprite spriteWithImageNamed:@"bullet.png"];
+        [theGame addChild:bullet];
+        [bullet setPosition:mySprite.position];
+        [bullet runAction:[CCActionSequence actions:[CCActionMoveTo actionWithDuration:0.2 position:chosenEnemy.mySprite.position],[CCActionCallFunc actionWithTarget:self selector:@selector(damageEnemy)],[CCActionRemove action],nil]];
+    }
 }
 //-(void)removeBullet:(CCSprite *)bullet {
 //    [bullet removeFromParentAndCleanup:YES];
@@ -115,12 +146,7 @@ const float MAIN_TOWER_HEALTH_BAR_HEIGHT = 4.0f;
 
 -(void)upgradeTower {
     atkPower += 1+(atkPower*.3f);
-    //atkSpeed += 0.1f;
-    
-    upgrade += 1;
-    
-    maxHP += 10;
-    currentHP = maxHP;
+    maxHP += 100;
 }
 
 -(void)drawHealthBar:(CCDrawNode *)node hp:(int)hp {
