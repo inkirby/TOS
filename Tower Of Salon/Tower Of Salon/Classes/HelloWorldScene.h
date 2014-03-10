@@ -11,7 +11,7 @@
 #import <GameKit/GameKit.h>
 #import "cocos2d.h"
 #import "cocos2d-ui.h"
-
+#import "MainTower.h"
 
 // -----------------------------------------------------------------------
 
@@ -26,6 +26,7 @@
     int playerDiamond;
     int enemyNum;
     BOOL gameEnded;
+    BOOL isBossOut;
     CCLabelBMFont *ui_hp_lbl;
     CCLabelBMFont *ui_gold_lbl;
     CCLabelBMFont *ui_wave_lbl;
