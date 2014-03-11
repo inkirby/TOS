@@ -176,28 +176,6 @@ const float TOWER_HEALTH_BAR_HEIGHT = 4.0f;
     [node drawPolyWithVerts:verts count:4 fillColor:fillColors borderWidth:0.0f borderColor:clearColors];
 }
 
--(void)draw {
-    
-    ccDrawColor4B(255,255,255,255);
-    ccDrawCircle(mySprite.position,atkRange,360,30,false);
-    
-    CGPoint myPosition = mySprite.position;
-    
-//    ccDrawSolidRect(ccp(myPosition.x+HEALTH_BAR_ORIGIN,
-//                        myPosition.y+16),
-//                    ccp(myPosition.x+HEALTH_BAR_ORIGIN+HEALTH_BAR_WIDTH,
-//                        myPosition.y+14),
-//                    ccc4f(1.0, 0, 0, 1.0));
-//    
-//    ccDrawSolidRect(ccp(myPosition.x+HEALTH_BAR_ORIGIN,
-//                        myPosition.y+16),
-//                    ccp(myPosition.x+HEALTH_BAR_ORIGIN + (float)(currentHP * HEALTH_BAR_WIDTH)/maxHP,
-//                        myPosition.y+14),
-//                    ccc4f(0, 1.0, 0, 1.0));
-    
-    [super draw];
-}
-
 // damage receive from boss
 -(void)receiveDamage:(int)damage {
     currentHP-=20;

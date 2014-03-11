@@ -227,13 +227,10 @@
 		901B96A518CE2E9200ED14CD /* maintowerlaser.png in Resources */ = {isa = PBXBuildFile; fileRef = 901B96A318CE2E9200ED14CD /* maintowerlaser.png */; };
 		901B96A818CE311E00ED14CD /* maintowerbullet-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 901B96A618CE311E00ED14CD /* maintowerbullet-hd.png */; };
 		901B96A918CE311E00ED14CD /* maintowerbullet.png in Resources */ = {isa = PBXBuildFile; fileRef = 901B96A718CE311E00ED14CD /* maintowerbullet.png */; };
-		904D7A2A18CDA9880042105E /* 8bitDungeonLevel.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 904D7A1118CDA9880042105E /* 8bitDungeonLevel.mp3 */; };
 		904D7A2B18CDA9880042105E /* bg-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 904D7A1218CDA9880042105E /* bg-hd.png */; };
 		904D7A2C18CDA9880042105E /* bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 904D7A1318CDA9880042105E /* bg.png */; };
 		904D7A2D18CDA9880042105E /* bullet-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 904D7A1418CDA9880042105E /* bullet-hd.png */; };
 		904D7A2E18CDA9880042105E /* bullet.png in Resources */ = {isa = PBXBuildFile; fileRef = 904D7A1518CDA9880042105E /* bullet.png */; };
-		904D7A2F18CDA9880042105E /* enemy_destroy_2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 904D7A1618CDA9880042105E /* enemy_destroy_2.wav */; };
-		904D7A3018CDA9880042105E /* enemy_destroy.wav in Resources */ = {isa = PBXBuildFile; fileRef = 904D7A1718CDA9880042105E /* enemy_destroy.wav */; };
 		904D7A3118CDA9880042105E /* enemy-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 904D7A1818CDA9880042105E /* enemy-hd.png */; };
 		904D7A3218CDA9880042105E /* enemy.png in Resources */ = {isa = PBXBuildFile; fileRef = 904D7A1918CDA9880042105E /* enemy.png */; };
 		904D7A3318CDA9880042105E /* font_red_14.png in Resources */ = {isa = PBXBuildFile; fileRef = 904D7A1A18CDA9880042105E /* font_red_14.png */; };
@@ -244,8 +241,6 @@
 		904D7A3818CDA9880042105E /* icon_gold.png in Resources */ = {isa = PBXBuildFile; fileRef = 904D7A1F18CDA9880042105E /* icon_gold.png */; };
 		904D7A3918CDA9880042105E /* icon_HP-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 904D7A2018CDA9880042105E /* icon_HP-hd.png */; };
 		904D7A3A18CDA9880042105E /* icon_HP.png in Resources */ = {isa = PBXBuildFile; fileRef = 904D7A2118CDA9880042105E /* icon_HP.png */; };
-		904D7A3B18CDA9880042105E /* laser_shoot.wav in Resources */ = {isa = PBXBuildFile; fileRef = 904D7A2218CDA9880042105E /* laser_shoot.wav */; };
-		904D7A3C18CDA9880042105E /* life_lose.wav in Resources */ = {isa = PBXBuildFile; fileRef = 904D7A2318CDA9880042105E /* life_lose.wav */; };
 		904D7A3D18CDA9880042105E /* open_spot-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 904D7A2418CDA9880042105E /* open_spot-hd.png */; };
 		904D7A3E18CDA9880042105E /* open_spot.png in Resources */ = {isa = PBXBuildFile; fileRef = 904D7A2518CDA9880042105E /* open_spot.png */; };
 		904D7A3F18CDA9880042105E /* tower-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 904D7A2618CDA9880042105E /* tower-hd.png */; };
@@ -722,13 +717,10 @@
 		901B96A318CE2E9200ED14CD /* maintowerlaser.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = maintowerlaser.png; sourceTree = "<group>"; };
 		901B96A618CE311E00ED14CD /* maintowerbullet-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "maintowerbullet-hd.png"; sourceTree = "<group>"; };
 		901B96A718CE311E00ED14CD /* maintowerbullet.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = maintowerbullet.png; sourceTree = "<group>"; };
-		904D7A1118CDA9880042105E /* 8bitDungeonLevel.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = 8bitDungeonLevel.mp3; sourceTree = "<group>"; };
 		904D7A1218CDA9880042105E /* bg-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg-hd.png"; sourceTree = "<group>"; };
 		904D7A1318CDA9880042105E /* bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg.png; sourceTree = "<group>"; };
 		904D7A1418CDA9880042105E /* bullet-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bullet-hd.png"; sourceTree = "<group>"; };
 		904D7A1518CDA9880042105E /* bullet.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bullet.png; sourceTree = "<group>"; };
-		904D7A1618CDA9880042105E /* enemy_destroy_2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = enemy_destroy_2.wav; sourceTree = "<group>"; };
-		904D7A1718CDA9880042105E /* enemy_destroy.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = enemy_destroy.wav; sourceTree = "<group>"; };
 		904D7A1818CDA9880042105E /* enemy-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "enemy-hd.png"; sourceTree = "<group>"; };
 		904D7A1918CDA9880042105E /* enemy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = enemy.png; sourceTree = "<group>"; };
 		904D7A1A18CDA9880042105E /* font_red_14.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = font_red_14.png; sourceTree = "<group>"; };
@@ -739,8 +731,6 @@
 		904D7A1F18CDA9880042105E /* icon_gold.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_gold.png; sourceTree = "<group>"; };
 		904D7A2018CDA9880042105E /* icon_HP-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_HP-hd.png"; sourceTree = "<group>"; };
 		904D7A2118CDA9880042105E /* icon_HP.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_HP.png; sourceTree = "<group>"; };
-		904D7A2218CDA9880042105E /* laser_shoot.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = laser_shoot.wav; sourceTree = "<group>"; };
-		904D7A2318CDA9880042105E /* life_lose.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = life_lose.wav; sourceTree = "<group>"; };
 		904D7A2418CDA9880042105E /* open_spot-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "open_spot-hd.png"; sourceTree = "<group>"; };
 		904D7A2518CDA9880042105E /* open_spot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = open_spot.png; sourceTree = "<group>"; };
 		904D7A2618CDA9880042105E /* tower-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tower-hd.png"; sourceTree = "<group>"; };
@@ -823,12 +813,9 @@
 		0DB0682518C71461003217A8 /* Tower Of Salon */ = {
 			isa = PBXGroup;
 			children = (
-				904D7A1118CDA9880042105E /* 8bitDungeonLevel.mp3 */,
 				904D7A1218CDA9880042105E /* bg-hd.png */,
 				904D7A1318CDA9880042105E /* bg.png */,
 				904D7A1418CDA9880042105E /* bullet-hd.png */,
-				904D7A1618CDA9880042105E /* enemy_destroy_2.wav */,
-				904D7A1718CDA9880042105E /* enemy_destroy.wav */,
 				904D7A1818CDA9880042105E /* enemy-hd.png */,
 				904D7A1918CDA9880042105E /* enemy.png */,
 				904D7A1518CDA9880042105E /* bullet.png */,
@@ -854,8 +841,6 @@
 				904FAB6C18CE6BFA00C323E3 /* laserguide.png */,
 				901B969E18CE2BFE00ED14CD /* maintowerarrow-hd.png */,
 				901B969F18CE2BFE00ED14CD /* maintowerarrow.png */,
-				904D7A2218CDA9880042105E /* laser_shoot.wav */,
-				904D7A2318CDA9880042105E /* life_lose.wav */,
 				904D7A2418CDA9880042105E /* open_spot-hd.png */,
 				904D7A2518CDA9880042105E /* open_spot.png */,
 				904D7A2618CDA9880042105E /* tower-hd.png */,
@@ -1753,7 +1738,7 @@
 		0DB0680218C71460003217A8 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0500;
+				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "Pisitsak Sriwimol";
 				TargetAttributes = {
 					0DB0680918C71460003217A8 = {
@@ -1796,7 +1781,6 @@
 				904D7A3718CDA9880042105E /* icon_gold-hd.png in Resources */,
 				904FAB6A18CE536900C323E3 /* skeleton.png in Resources */,
 				0DB0683718C71461003217A8 /* Icon-72@2x.png in Resources */,
-				904D7A2F18CDA9880042105E /* enemy_destroy_2.wav in Resources */,
 				0DB0682818C71461003217A8 /* Default.png in Resources */,
 				904FAB6D18CE6BFA00C323E3 /* laserguide-hd.png in Resources */,
 				904D7A3318CDA9880042105E /* font_red_14.png in Resources */,
@@ -1808,7 +1792,6 @@
 				901B96A818CE311E00ED14CD /* maintowerbullet-hd.png in Resources */,
 				904D7A4018CDA9880042105E /* tower.png in Resources */,
 				0DB0682E18C71461003217A8 /* Default-Landscape~ipad.png in Resources */,
-				904D7A3C18CDA9880042105E /* life_lose.wav in Resources */,
 				0DB0684318C71461003217A8 /* Icon-Small.png in Resources */,
 				904D7A4118CDA9880042105E /* TowersPosition.plist in Resources */,
 				0DB0684118C71461003217A8 /* Icon-Small-50.png in Resources */,
@@ -1820,7 +1803,6 @@
 				0DB06A2A18C71462003217A8 /* LICENSE_Kazmath.txt in Resources */,
 				904FAB6918CE536900C323E3 /* skeleton-hd.png in Resources */,
 				0DB0683518C71461003217A8 /* Icon-72.png in Resources */,
-				904D7A3018CDA9880042105E /* enemy_destroy.wav in Resources */,
 				0DB0698318C71462003217A8 /* LICENSE_cocos2d.txt in Resources */,
 				901B969D18CE1D8300ED14CD /* arrow.png in Resources */,
 				904D7A3118CDA9880042105E /* enemy-hd.png in Resources */,
@@ -1834,7 +1816,6 @@
 				904D7A4218CDA9880042105E /* Waves.plist in Resources */,
 				901B96A418CE2E9200ED14CD /* maintowerlaser-hd.png in Resources */,
 				904D7A2B18CDA9880042105E /* bg-hd.png in Resources */,
-				904D7A2A18CDA9880042105E /* 8bitDungeonLevel.mp3 in Resources */,
 				904D7A3418CDA9880042105E /* font_red_28.png in Resources */,
 				0DB0684718C71461003217A8 /* Icon-Spotlight-iOS7.png in Resources */,
 				904D7A2C18CDA9880042105E /* bg.png in Resources */,
@@ -1842,7 +1823,6 @@
 				0DB06AAF18C71463003217A8 /* LICENSE_Chipmunk.txt in Resources */,
 				0DB0684918C71461003217A8 /* Icon-Spotlight-iOS7@2x.png in Resources */,
 				0DB0683918C71461003217A8 /* Icon-76.png in Resources */,
-				904D7A3B18CDA9880042105E /* laser_shoot.wav in Resources */,
 				904D7A3F18CDA9880042105E /* tower-hd.png in Resources */,
 				901B96A518CE2E9200ED14CD /* maintowerlaser.png in Resources */,
 				904D7A3918CDA9880042105E /* icon_HP-hd.png in Resources */,
@@ -2060,8 +2040,13 @@
 		0DB06ABE18C71463003217A8 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -2071,9 +2056,14 @@
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -2082,8 +2072,13 @@
 		0DB06ABF18C71463003217A8 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -2091,7 +2086,11 @@
 					"NS_BLOCK_ASSERTIONS=1",
 				);
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				SDKROOT = iphoneos;
@@ -2103,7 +2102,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_ENABLE_OBJC_ARC = NO;
 				EXECUTABLE_EXTENSION = a;
 				EXECUTABLE_PREFIX = lib;
@@ -2120,7 +2118,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_ENABLE_OBJC_ARC = NO;
 				EXECUTABLE_EXTENSION = a;
 				EXECUTABLE_PREFIX = lib;
@@ -2137,7 +2134,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD)";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -2163,7 +2159,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD)";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
