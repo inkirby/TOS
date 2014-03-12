@@ -440,7 +440,7 @@
 - (CCSprite*) getSprite:(int)spriteid {
     currentSpritePos++;
     if (currentSpritePos>10) currentSpritePos = 0;
-    
+    /*
     switch (spriteid) {
         case 0:
             skeleton = [CCSprite spriteWithImageNamed:@"skeleton.png"];
@@ -457,6 +457,23 @@
             [tboss removeObjectAtIndex:currentSpritePos];
             [tboss insertObject:boss atIndex:currentSpritePos];
             return currentSpritePos==0?[tboss objectAtIndex:10]:[tboss objectAtIndex:currentSpritePos-1];
+    }
+     */
+    CCSprite *tsprite;
+    
+    switch (spriteid) {
+        case 0:
+            tsprite = skeleton;
+            skeleton = [CCSprite spriteWithImageNamed:@"skeleton.png"];
+            return tsprite;
+        case 1:
+            tsprite = hydra;
+            hydra = [CCSprite spriteWithImageNamed:@"hydra.png"];
+            return tsprite;
+        default:
+            tsprite = boss;
+            boss = [CCSprite spriteWithImageNamed:@"boss.png"];
+            return tsprite;
     }
 }
 
