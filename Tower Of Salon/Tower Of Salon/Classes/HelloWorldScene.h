@@ -27,6 +27,15 @@
     int enemyNum;
     BOOL gameEnded;
     BOOL isBossOut;
+    
+    int currentSpritePos;
+    
+    CCSprite *skeleton;
+    CCSprite *hydra;
+    CCSprite *boss;
+    NSMutableArray *tskeleton;
+    NSMutableArray *thydra;
+    NSMutableArray *tboss;
     CCLabelBMFont *ui_hp_lbl;
     CCLabelBMFont *ui_gold_lbl;
     CCLabelBMFont *ui_wave_lbl;
@@ -57,6 +66,8 @@ void ccFillPoly(CGPoint *poli,int points,BOOL closePolygon);
 - (void) awardGold:(int)gold;
 - (void) awardDiamond:(int)diamond;
 - (void) setBaseValue:(NSInteger)tdiamond :(NSInteger)tattack :(NSInteger)thp :(NSInteger)tspeed;
+
+- (CCSprite*) getSprite:(int)spriteid;
 
 // -----------------------------------------------------------------------
 @end

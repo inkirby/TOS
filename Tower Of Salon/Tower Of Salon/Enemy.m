@@ -28,42 +28,53 @@ const float ENEMY_HEALTH_BAR_HEIGHT = 4.0f;
         attackedBy = [[NSMutableArray alloc] initWithCapacity:5];
         
         theGame = _game;
+        
+        NSLog(@"%d enemy with id: %@", enemy, mySprite.init);
+        mySprite = [theGame getSprite:enemy];
+        
         //added assets
         if(enemy == 0) {
-            mySprite = [CCSprite spriteWithImageNamed:@"skeleton.png"];
-            [self addChild:mySprite];
             maxHP = 40+(5* wave);
             walkingSpeed = 1.0;
             type = 0;
         } else if (enemy == 1) {
-            mySprite = [CCSprite spriteWithImageNamed:@"hydra.png"];
-            [self addChild:mySprite];
             maxHP = 100+(10*wave);
             walkingSpeed = 2.5;
             type = 1;
-        } else if (enemy == 2) {
-            mySprite = [CCSprite spriteWithImageNamed:@"boss.png"];
-            [self addChild:mySprite];
+        } else {
             maxHP = 250+(20*wave);
             walkingSpeed = 3.5;
             type = 2;
         }
+        
+        NSLog(@"!");
+        
+        [self addChild:mySprite];
         currentHP = maxHP;
         active = NO;
         
+        NSLog(@"1!");
         Waypoint *waypoint = (Waypoint *)[theGame.waypoints objectAtIndex:([theGame.waypoints count] -1)];
         destinationWaypoint = waypoint.nextWayPoint;
         
+        
+        NSLog(@"2!");
         CGPoint pos = waypoint.myPosition;
         myPosition = pos;
         
+        
+        NSLog(@"3!");
         healthBar = [[CCDrawNode alloc] init];
         healthBar.contentSize = CGSizeMake(ENEMY_HEALTH_BAR_WIDTH, ENEMY_HEALTH_BAR_HEIGHT);
         [self addChild:healthBar];
         
+        
+        NSLog(@"4!");
         [mySprite setPosition:pos];
         [theGame addChild:self];
         //[self scheduleUpdate];
+        
+        NSLog(@"Ahhhhhhhh");
     }
     
     return self;

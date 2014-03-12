@@ -49,6 +49,22 @@
     
     NSLog(@"init helloworld");
     
+    currentSpritePos = 0;
+    tskeleton = [[NSMutableArray alloc] init];
+    thydra = [[NSMutableArray alloc] init];
+    tboss = [[NSMutableArray alloc] init];
+    for (int i=0; i<15; i++) {
+        skeleton = nil;
+        hydra = nil;
+        boss = nil;
+        skeleton = [CCSprite spriteWithImageNamed:@"skeleton.png"];
+        hydra =[CCSprite spriteWithImageNamed:@"hydra.png"];
+        boss = [CCSprite spriteWithImageNamed:@"boss.png"];
+        [tskeleton addObject:skeleton];
+        [thydra addObject:hydra];
+        [tboss addObject:boss];
+    }
+    
     // Enable touch handling on scene node
     self.userInteractionEnabled = YES;
     CGSize winSize = [CCDirector sharedDirector].viewSize;
@@ -66,7 +82,6 @@
     [self addWaypoints];
     enemies = [[NSMutableArray alloc] init];
     towers = [[NSMutableArray alloc] init];
-    
     
     ui_wave_lbl = [CCLabelBMFont labelWithString:[NSString stringWithFormat:@"WAVE: %d",wave] fntFile:@"font_red_14.fnt"];
     [self addChild:ui_wave_lbl z:10];
@@ -172,7 +187,7 @@
     
     float time = 3;
     isBossOut = false;
-    for(int i=0;i<NumOfEnemy+arc4random()%(wave+1);i++) {
+    for(int i=0;i<NumOfEnemy+20+arc4random()%(wave+1);i++) {
         int temp = arc4random()%100;
         if(temp > 95) {
             if(!isBossOut) {
@@ -203,7 +218,7 @@
         enemyNum++;
     }
     
-    NSLog(@"enemy =%d",[enemies count]);
+    NSLog(@"enemy =%lu",(unsigned long)[enemies count]);
     
     wave++;
     [ui_wave_lbl setString:[NSString stringWithFormat:@"WAVE: %d",wave]];
@@ -270,10 +285,10 @@
     
     NSLog(@"%@",uid);
     
-    NSString *post = [NSString stringWithFormat:@"&UID=%@&Diamond=%d&Attack=%d&HP=%d&Speed=%d",uid,(diamond+playerDiamond),attack,hp,speed];
+    NSString *post = [NSString stringWithFormat:@"&UID=%@&Diamond=%d&Attack=%ld&HP=%ld&Speed=%ld",uid,(diamond+playerDiamond),(long)attack,(long)hp,(long)speed];
     NSLog(@"string = %@",post);
     NSData *postData = [post dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
-    NSString *postLength = [NSString stringWithFormat:@"%d",[postData length]];
+    NSString *postLength = [NSString stringWithFormat:@"%lu",(unsigned long)[postData length]];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
     ;
     [request setURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://egco-towerofsalon.meximas.com/db_updateuser.php"]]];
@@ -363,7 +378,7 @@
             if(!towerBase.userObject) {
                     Tower *tower = [Tower nodeWithTheGame:self location:towerBase.position];
                     [towers addObject:tower];
-                    NSLog(@"towers count = %d",[towers count]);
+                    NSLog(@"towers count = %lu",(unsigned long)[towers count]);
                     towerBase.userObject = (__bridge id)((__bridge void *)(tower));
                     playerGold -= TOWER_COST;
                 
@@ -419,4 +434,30 @@
 }
 
 // -----------------------------------------------------------------------
+
+
+
+- (CCSprite*) getSprite:(int)spriteid {
+    currentSpritePos++;
+    if (currentSpritePos>10) currentSpritePos = 0;
+    
+    switch (spriteid) {
+        case 0:
+            skeleton = [CCSprite spriteWithImageNamed:@"skeleton.png"];
+            [tskeleton removeObjectAtIndex:currentSpritePos];
+            [tskeleton insertObject:skeleton atIndex:currentSpritePos];
+            return currentSpritePos==0?[tskeleton objectAtIndex:10]:[tskeleton objectAtIndex:currentSpritePos-1];
+        case 1:
+            hydra =[CCSprite spriteWithImageNamed:@"hydra.png"];
+            [thydra removeObjectAtIndex:currentSpritePos];
+            [thydra insertObject:hydra atIndex:currentSpritePos];
+            return currentSpritePos==0?[thydra objectAtIndex:10]:[thydra objectAtIndex:currentSpritePos-1];
+        default:
+            boss = [CCSprite spriteWithImageNamed:@"boss.png"];
+            [tboss removeObjectAtIndex:currentSpritePos];
+            [tboss insertObject:boss atIndex:currentSpritePos];
+            return currentSpritePos==0?[tboss objectAtIndex:10]:[tboss objectAtIndex:currentSpritePos-1];
+    }
+}
+
 @end

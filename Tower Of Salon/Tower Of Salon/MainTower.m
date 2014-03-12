@@ -37,21 +37,21 @@ const float MAIN_TOWER_HEALTH_BAR_HEIGHT = 4.0f;
         canAttack = false;
         
         // receivable vars
-        atkType = 2;
+        atkType = 1;
         
         switch (atkType) {
             case 1: // arrow
-                atkPower = 3;
+                atkPower = 200;
                 atkSpeed = 2;
                 mySprite = [CCSprite spriteWithImageNamed:@"maintowerarrow.png"];
                 break;
             case 2: // laser
                 atkPower = 3;
-                atkSpeed = .05;
+                atkSpeed = .03;
                 mySprite = [CCSprite spriteWithImageNamed:@"maintowerlaser.png"];
                 break;
             default: // bullet
-                atkPower = 1;
+                atkPower = 110;
                 atkSpeed = 1;
                 mySprite = [CCSprite spriteWithImageNamed:@"maintowerbullet.png"];
                 break;
